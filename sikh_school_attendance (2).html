@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>☬ Attendance Register</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF7F2;--bg2:#F2EDE4;--bg3:#E8E0D4;
+  --border:#D4C9B8;--border2:#C4B8A4;
+  --text:#1A1410;--text2:#6B5E4E;--text3:#9C8C7A;
+  --green:#2D5A1B;--green-bg:#EAF3DE;--green-mid:#97C459;
+  --red:#8B1F1F;--red-bg:#FAEAEA;--red-mid:#E89090;
+  --amber:#7A4010;--amber-bg:#FDF0DC;--amber-mid:#F0B050;
+  --gold:#C49A2A;
+  --shadow:0 2px 16px rgba(0,0,0,0.08);
+  --shadow-lg:0 8px 40px rgba(0,0,0,0.14);
+  --radius:10px;--radius-sm:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── LOGIN ── */
+#login-page{min-height:100vh;background:var(--text);display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden;}
+#login-page::before{content:'☬';position:absolute;font-size:420px;color:rgba(196,154,42,0.06);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;line-height:1;}
+.login-card{background:var(--bg);border-radius:20px;width:min(420px,100%);padding:2.5rem 2rem;box-shadow:0 24px 80px rgba(0,0,0,0.4);border:1px solid var(--border);animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.login-logo{text-align:center;margin-bottom:1.75rem;}
+.login-logo .kb{font-size:44px;color:var(--gold);display:block;margin-bottom:8px;}
+.login-logo h2{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:4px;}
+.login-logo p{font-size:13px;color:var(--text3);}
+.lbl{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:block;}
+.login-select,.login-input{font-family:'DM Sans',sans-serif;font-size:14px;width:100%;height:44px;padding:0 14px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--bg);color:var(--text);margin-bottom:16px;transition:border-color .15s;}
+.login-select{cursor:pointer;}
+.login-select:focus,.login-input:focus{outline:none;border-color:var(--gold);}
+.login-input.err{border-color:var(--red);}
+.login-btn{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;width:100%;height:46px;border-radius:var(--radius);border:none;background:var(--text);color:#FAF7F2;cursor:pointer;transition:opacity .15s,transform .1s;}
+.login-btn:hover{opacity:.88;}
+.login-btn:active{transform:scale(.98);}
+.login-err{font-size:13px;color:var(--red);text-align:center;margin-top:12px;display:none;font-weight:500;}
+.login-err.show{display:block;}
+
+/* ── APP SHELL ── */
+#app-shell{display:none;}
+.app-header{background:var(--text);color:#FAF7F2;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50;box-shadow:0 2px 20px rgba(0,0,0,0.2);}
+.app-header h1{font-family:'DM Serif Display',serif;font-size:20px;display:flex;align-items:center;gap:10px;}
+.kh{color:var(--gold);}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.save-pill{font-size:12px;padding:4px 12px;border-radius:99px;background:rgba(196,154,42,.2);color:var(--gold);border:1px solid rgba(196,154,42,.3);opacity:0;transition:opacity .4s;display:flex;align-items:center;gap:5px;}
+.save-pill.show{opacity:1;}
+.save-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+.user-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:4px 12px 4px 6px;cursor:pointer;transition:background .12s;}
+.user-chip:hover{background:rgba(255,255,255,.15);}
+.chip-av{width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--text);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.chip-name{font-size:12px;color:rgba(250,247,242,.85);font-weight:500;}
+.btn-export{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#FAF7F2;cursor:pointer;transition:background .15s;}
+.btn-export:hover{background:rgba(255,255,255,.16);}
+.nav-tabs{background:var(--text);display:flex;padding:0 2rem;border-top:1px solid rgba(255,255,255,.08);}
+.nav-tab{font-size:13px;padding:10px 16px;color:rgba(250,247,242,.5);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.nav-tab:hover{color:rgba(250,247,242,.8);}
+.nav-tab.active{color:#FAF7F2;border-bottom-color:var(--gold);}
+
+/* ── MAIN ── */
+.main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+
+/* Loading */
+.loading-state{text-align:center;padding:3rem 1rem;color:var(--text3);}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-err{background:var(--red-bg);border:1px solid var(--red-mid);border-radius:var(--radius);padding:14px 18px;font-size:14px;color:var(--red);margin-bottom:16px;line-height:1.5;}
+
+/* Controls */
+.controls-bar{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;box-shadow:var(--shadow);}
+.sunday-nav{display:flex;align-items:center;gap:6px;}
+.nav-arrow{width:30px;height:30px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .12s;}
+.nav-arrow:hover{background:var(--bg3);}
+.sunday-label{font-size:13px;font-weight:600;min-width:130px;text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:5px 10px;}
+.ctrl-select{font-family:'DM Sans',sans-serif;font-size:13px;height:32px;padding:0 10px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;}
+.search-wrap{position:relative;flex:1;min-width:180px;}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text3);pointer-events:none;}
+#search{font-family:'DM Sans',sans-serif;width:100%;height:32px;padding:0 28px 0 30px;font-size:13px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);}
+#search:focus{outline:none;border-color:var(--text2);}
+#search::placeholder{color:var(--text3);}
+.clear-search{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:14px;display:none;padding:0;}
+.mark-all-btns{display:flex;gap:5px;margin-left:auto;}
+.mark-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:4px 12px;border-radius:var(--radius-sm);cursor:pointer;height:28px;transition:all .12s;}
+.mark-btn.p{border:1px solid var(--green);color:var(--green);background:transparent;}.mark-btn.p:hover{background:var(--green-bg);}
+.mark-btn.l{border:1px solid var(--amber);color:var(--amber);background:transparent;}.mark-btn.l:hover{background:var(--amber-bg);}
+.mark-btn.a{border:1px solid var(--red);color:var(--red);background:transparent;}.mark-btn.a:hover{background:var(--red-bg);}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.stat-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);}
+.stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:500;}
+.stat-val{font-family:'DM Serif Display',serif;font-size:28px;margin-top:2px;}
+.stat-val.g{color:var(--green);}.stat-val.r{color:var(--red);}.stat-val.a{color:var(--amber);}
+
+/* Student list */
+.class-header{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:14px 0 8px;border-bottom:1px solid var(--border);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.teacher-tag{font-size:11px;font-weight:400;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:99px;padding:1px 8px;text-transform:none;}
+.srow{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:var(--radius-sm);border:1px solid transparent;margin-bottom:3px;transition:all .12s;}
+.srow:hover{background:var(--bg2);}
+.srow.mP{background:var(--green-bg);border-color:var(--green-mid);}
+.srow.mA{background:var(--red-bg);border-color:var(--red-mid);}
+.srow.mL{background:var(--amber-bg);border-color:var(--amber-mid);}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;cursor:pointer;transition:transform .12s;background:#E8E4FC;color:#3A2E8C;}
+.av:hover{transform:scale(1.12);}
+.av.P{background:#C5DFA0;color:#1D4A0B;}.av.A{background:#F5C0C0;color:#6B1010;}.av.L{background:#FAD898;color:#5A2D00;}
+.roll{font-size:11px;color:var(--text3);width:42px;flex-shrink:0;}
+.sname{font-size:13px;color:var(--text);flex:1;cursor:pointer;}
+.sname:hover{text-decoration:underline;text-decoration-color:var(--border2);}
+.sname mark{background:var(--amber-bg);color:var(--amber);border-radius:2px;padding:0 2px;}
+.att-btns{display:flex;gap:3px;}
+.ab{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;width:66px;padding:5px 0;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text3);cursor:pointer;text-align:center;transition:all .12s;}
+.ab:hover{border-color:var(--border2);background:var(--bg2);color:var(--text);}
+.ab.aP{background:var(--green);border-color:var(--green);color:white;font-weight:600;box-shadow:0 1px 6px rgba(45,90,27,.3);}
+.ab.aA{background:var(--red);border-color:var(--red);color:white;font-weight:600;box-shadow:0 1px 6px rgba(139,31,31,.3);}
+.ab.aL{background:var(--amber);border-color:var(--amber);color:white;font-weight:600;box-shadow:0 1px 6px rgba(122,64,16,.3);}
+.no-results{padding:3rem 0;text-align:center;color:var(--text3);font-size:14px;}
+
+/* History */
+#hist-panel{display:none;}
+.hist-controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.htbl{width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);}
+.htbl thead{background:var(--text);color:#FAF7F2;}
+.htbl th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;padding:10px 14px;}
+.htbl td{padding:9px 14px;border-bottom:1px solid var(--border);}
+.htbl tr:last-child td{border-bottom:none;}
+.htbl tbody tr:hover{background:var(--bg);}
+.badge{display:inline-block;font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;}
+.bP{background:var(--green-bg);color:var(--green);}.bA{background:var(--red-bg);color:var(--red);}.bL{background:var(--amber-bg);color:var(--amber);}
+
+/* Profile overlay */
+.overlay{position:fixed;inset:0;background:rgba(26,20,16,.6);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(2px);}
+.overlay.open{display:flex;}
+.profile-card{background:var(--bg);border-radius:16px;width:min(480px,100%);max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);border:1px solid var(--border);animation:fadeUp .22s ease;}
+.prof-hdr{padding:1.5rem;background:var(--text);border-radius:16px 16px 0 0;display:flex;align-items:center;gap:14px;position:relative;}
+.prof-av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:20px;flex-shrink:0;background:#E8E4FC;color:#3A2E8C;}
+.prof-av.P{background:#C5DFA0;color:#1D4A0B;}.prof-av.A{background:#F5C0C0;color:#6B1010;}.prof-av.L{background:#FAD898;color:#5A2D00;}
+.prof-title h2{font-family:'DM Serif Display',serif;font-size:18px;color:#FAF7F2;}
+.prof-title p{font-size:12px;color:rgba(250,247,242,.55);margin-top:3px;}
+.prof-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.1);border:none;color:#FAF7F2;cursor:pointer;width:28px;height:28px;border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.prof-close:hover{background:rgba(255,255,255,.2);}
+.prof-body{padding:1.25rem 1.5rem 1.5rem;}
+.prof-section{margin-bottom:1.25rem;}
+.prof-sec-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.prof-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.prof-field{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;}
+.prof-field.wide{grid-column:1/-1;}
+.prof-field label{font-size:11px;color:var(--text3);display:block;margin-bottom:2px;}
+.prof-field span{font-size:13px;color:var(--text);font-weight:500;word-break:break-all;}
+.att-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.sum-box{border-radius:var(--radius-sm);padding:10px;text-align:center;border:1px solid transparent;}
+.sum-box.g{background:var(--green-bg);border-color:var(--green-mid);}.sum-box.r{background:var(--red-bg);border-color:var(--red-mid);}.sum-box.a{background:var(--amber-bg);border-color:var(--amber-mid);}
+.sum-num{font-family:'DM Serif Display',serif;font-size:26px;}
+.sum-box.g .sum-num{color:var(--green);}.sum-box.r .sum-num{color:var(--red);}.sum-box.a .sum-num{color:var(--amber);}
+.sum-lbl{font-size:11px;color:var(--text3);}
+.rate-box{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:10px;}
+.rate-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.rate-row span{font-size:13px;color:var(--text2);}
+.prog-bar{height:5px;border-radius:99px;background:var(--bg3);overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s ease;}
+.log-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.log-row:last-child{border-bottom:none;}
+.log-date{color:var(--text2);}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:#FAF7F2;font-size:13px;padding:9px 20px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:300;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.toast.show{opacity:1;}
+
+@media(max-width:640px){
+  .app-header,.nav-tabs{padding:0 1rem;}
+  .main{padding:1rem 1rem 3rem;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .controls-bar{padding:10px 12px;}
+  .mark-all-btns{margin-left:0;}
+  .ab{width:56px;font-size:10px;}
+  .prof-grid{grid-template-columns:1fr;}
+  .prof-field.wide{grid-column:1;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN PAGE ── -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="kb">☬</span>
+      <h2>Attendance Register</h2>
+      <p>Sign in to mark your class</p>
+    </div>
+    <label class="lbl" for="login-user">Select your name</label>
+    <select class="login-select" id="login-user">
+      <option value="">— Choose teacher —</option>
+      <option value="Rajwinder & Sehaj">Rajwinder & Sehaj (Class 1A)</option>
+      <option value="Harmeet Kaur">Harmeet Kaur (Class 1B)</option>
+      <option value="Simran & Sukhwinder">Simran & Sukhwinder (Class 2)</option>
+      <option value="Pooja">Pooja (Class 3A)</option>
+      <option value="Amaroj">Amaroj (Class 3B)</option>
+      <option value="Anju">Anju (Class 3C)</option>
+      <option value="Jatinder & Jaswinder">Jatinder & Jaswinder (Class 4)</option>
+      <option value="Kuldeep & Satinder">Kuldeep & Satinder (Class 5)</option>
+      <option value="Amritpal">Amritpal (Class 6)</option>
+      <option value="admin">Admin (All classes)</option>
+    </select>
+    <label class="lbl" for="login-pass">Password</label>
+    <input class="login-input" type="password" id="login-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- ── MAIN APP ── -->
+<div id="app-shell">
+  <header class="app-header">
+    <h1><span class="kh">☬</span> Attendance Register</h1>
+    <div class="hdr-right">
+      <div class="save-pill" id="save-pill"><div class="save-dot"></div> Saved</div>
+      <div class="user-chip" onclick="logout()" title="Sign out">
+        <div class="chip-av" id="chip-av">?</div>
+        <span class="chip-name" id="chip-name">—</span>
+      </div>
+      <button class="btn-export" onclick="exportCSV()">Export CSV</button>
+    </div>
+  </header>
+  <nav class="nav-tabs">
+    <div class="nav-tab active" onclick="showTab('mark')">Mark Attendance</div>
+    <div class="nav-tab" onclick="showTab('history')">History</div>
+  </nav>
+
+  <main class="main">
+    <!-- MARK PANEL -->
+    <div id="mark-panel">
+      <div id="load-err" class="load-err" style="display:none;"></div>
+      <div id="loading-state" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading students from Google Sheets…</p>
+      </div>
+      <div id="mark-content" style="display:none;">
+        <div class="controls-bar">
+          <div class="sunday-nav">
+            <button class="nav-arrow" onclick="prevSunday()">‹</button>
+            <div class="sunday-label" id="sunday-label">—</div>
+            <button class="nav-arrow" onclick="nextSunday()">›</button>
+          </div>
+          <select class="ctrl-select" id="cfilter" onchange="render()">
+            <option value="all">All classes</option>
+          </select>
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="text" id="search" placeholder="Search name or roll…" oninput="onSearch(this.value)">
+            <button class="clear-search" id="clear-search" onclick="clearSearch()">✕</button>
+          </div>
+          <div class="mark-all-btns">
+            <button class="mark-btn p" onclick="markAll('P')">All Present</button>
+            <button class="mark-btn l" onclick="markAll('L')">All Late</button>
+            <button class="mark-btn a" onclick="markAll('A')">All Absent</button>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-label">Showing</div><div class="stat-val" id="st">0</div></div>
+          <div class="stat-card"><div class="stat-label">Present</div><div class="stat-val g" id="sp">0</div></div>
+          <div class="stat-card"><div class="stat-label">Absent</div><div class="stat-val r" id="sa">0</div></div>
+          <div class="stat-card"><div class="stat-label">Late</div><div class="stat-val a" id="sl">0</div></div>
+        </div>
+        <div id="slist"></div>
+      </div>
+    </div>
+
+    <!-- HISTORY PANEL -->
+    <div id="hist-panel">
+      <div class="hist-controls">
+        <select class="ctrl-select" id="hcfilter" onchange="renderHist()"><option value="all">All classes</option></select>
+        <select class="ctrl-select" id="hstatfilter" onchange="renderHist()">
+          <option value="all">All statuses</option>
+          <option value="P">Present</option>
+          <option value="A">Absent</option>
+          <option value="L">Late</option>
+        </select>
+      </div>
+      <table class="htbl">
+        <thead><tr><th>Date</th><th>Roll</th><th>Student</th><th>Class</th><th>Teacher</th><th>Status</th></tr></thead>
+        <tbody id="hbody"></tbody>
+      </table>
+      <p id="hist-empty" style="display:none;color:var(--text3);font-size:14px;padding:2rem 0;text-align:center;">No records yet.</p>
+    </div>
+  </main>
+</div>
+
+<!-- ── PROFILE OVERLAY ── -->
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="profile-card">
+    <div class="prof-hdr">
+      <div class="prof-av" id="prof-av"></div>
+      <div class="prof-title"><h2 id="prof-name"></h2><p id="prof-sub"></p></div>
+      <button class="prof-close" onclick="closeProfile()">✕</button>
+    </div>
+    <div class="prof-body">
+      <div class="prof-section">
+        <div class="prof-sec-title">Student Details</div>
+        <div class="prof-grid">
+          <div class="prof-field"><label>Roll No.</label><span id="p-roll"></span></div>
+          <div class="prof-field"><label>Class</label><span id="p-cls"></span></div>
+          <div class="prof-field"><label>Teacher</label><span id="p-teacher"></span></div>
+          <div class="prof-field"><label>Date of Birth</label><span id="p-dob"></span></div>
+          <div class="prof-field"><label>Father</label><span id="p-father"></span></div>
+          <div class="prof-field"><label>Mother</label><span id="p-mother"></span></div>
+          <div class="prof-field wide"><label>Email</label><span id="p-email"></span></div>
+        </div>
+      </div>
+      <div class="prof-section">
+        <div class="prof-sec-title">Attendance this term</div>
+        <div class="att-sum">
+          <div class="sum-box g"><div class="sum-num" id="p-np">0</div><div class="sum-lbl">Present</div></div>
+          <div class="sum-box r"><div class="sum-num" id="p-na">0</div><div class="sum-lbl">Absent</div></div>
+          <div class="sum-box a"><div class="sum-num" id="p-nl">0</div><div class="sum-lbl">Late</div></div>
+        </div>
+        <div class="rate-box">
+          <div class="rate-row"><span>Attendance rate</span><strong id="p-rate">—</strong></div>
+          <div class="prog-bar"><div class="prog-fill" id="p-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div class="prof-section">
+        <div class="prof-sec-title">Session Log</div>
+        <div id="p-log"><p style="font-size:13px;color:var(--text3);">No sessions recorded yet.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// ①  PASTE YOUR WEB APP URL BELOW after deploying Apps Script
+// ═══════════════════════════════════════════════════════════
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwrLw2zYKh-hwLncVEpznH-C0iZBuFUiDklQVsq-bCviScUEelPzEtCJVNT8I8tinhL4w/exec';
+// ═══════════════════════════════════════════════════════════
+
+const STORAGE_KEY = 'sikhSchoolAtt_v3';
+
+const PASSWORDS = {
+  'Rajwinder & Sehaj':    '837241',
+  'Harmeet Kaur':         '594017',
+  'Simran & Sukhwinder':  '762483',
+  'Pooja':                '319856',
+  'Amaroj':               '451720',
+  'Anju':                 '208639',
+  'Jatinder & Jaswinder': '974152',
+  'Kuldeep & Satinder':   '683094',
+  'Amritpal':             '527361',
+  'admin':                'KH4LS4@16991469',
+};
+
+const TEACHER_CLASS = {
+  'Rajwinder & Sehaj':'1A','Harmeet Kaur':'1B','Simran & Sukhwinder':'2',
+  'Pooja':'3A','Amaroj':'3B','Anju':'3C','Jatinder & Jaswinder':'4',
+  'Kuldeep & Satinder':'5','Amritpal':'6','admin':'all',
+};
+
+let currentUser = null;
+let students    = [];
+let att         = {};
+let sundayList  = [], sundayIdx = 0, curDate = '', searchQ = '';
+
+// ── AUTH ─────────────────────────────────────────────────
+function doLogin() {
+  const user  = document.getElementById('login-user').value;
+  const pass  = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-err');
+  const passEl= document.getElementById('login-pass');
+  errEl.classList.remove('show');
+  passEl.classList.remove('err');
+
+  if (!user) { errEl.textContent = 'Please select your name.'; errEl.classList.add('show'); return; }
+  if (PASSWORDS[user] !== pass) {
+    errEl.textContent = 'Incorrect password. Please try again.';
+    errEl.classList.add('show'); passEl.classList.add('err');
+    passEl.value = ''; passEl.focus(); return;
+  }
+
+  currentUser = user;
+  const ini = user === 'admin' ? 'AD' : user.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('chip-av').textContent   = ini;
+  document.getElementById('chip-name').textContent = user === 'admin' ? 'Admin' : user.split(' ')[0];
+  document.getElementById('login-page').style.display  = 'none';
+  document.getElementById('app-shell').style.display   = 'block';
+  initApp();
+}
+
+function logout() {
+  if (!confirm('Sign out?')) return;
+  currentUser = null; students = []; att = {};
+  document.getElementById('login-page').style.display  = 'flex';
+  document.getElementById('app-shell').style.display   = 'none';
+  document.getElementById('mark-content').style.display = 'none';
+  document.getElementById('loading-state').style.display= 'block';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-user').value = '';
+}
+
+// ── INIT ─────────────────────────────────────────────────
+async function initApp() {
+  sundayList = buildSundays();
+  sundayIdx  = Math.max(0, sundayList.findIndex(s => s === ds(new Date())));
+  if (sundayIdx === 0 && sundayList[0] !== ds(new Date())) sundayIdx = sundayList.length - 5;
+
+  // Show cached data immediately while fetching
+  try {
+    const c = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    if (c.students && c.students.length) { students = c.students; att = c.att || {}; }
+  } catch(e) {}
+
+  document.getElementById('load-err').style.display    = 'none';
+  document.getElementById('loading-state').style.display = 'block';
+  document.getElementById('mark-content').style.display  = 'none';
+
+  if (SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+    if (students.length) {
+      showToast('⚠️ Not connected to Sheets — using cached data');
+      showApp();
+    } else {
+      showErr('Google Sheets not connected yet.\n\nOpen this HTML file in a text editor, find YOUR_WEB_APP_URL_HERE and replace it with your deployed Apps Script URL.\n\nSee the SETUP_INSTRUCTIONS file for steps.');
+    }
+    return;
+  }
+
+  try {
+    // Fetch students from Master Sheet
+    const sr   = await fetch(SHEETS_URL + '?action=students');
+    const sd   = await sr.json();
+    if (!sd.success) { showErr('Could not load students:\n' + sd.error); return; }
+    students = sd.students;
+
+    // Fetch attendance records
+    const ar = await fetch(SHEETS_URL);
+    const ad = await ar.json();
+    if (ad.success) att = ad.records || {};
+
+    // Cache locally
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({students, att})); } catch(e) {}
+    showApp();
+  } catch(err) {
+    if (students.length) {
+      showToast('Offline — using cached data');
+      showApp();
+    } else {
+      showErr('Could not reach Google Sheets.\n\nCheck your internet connection and that the Web App URL is correct in the HTML file.');
+    }
+  }
+}
+
+function showErr(msg) {
+  document.getElementById('load-err').textContent     = msg;
+  document.getElementById('load-err').style.display   = 'block';
+  document.getElementById('loading-state').style.display = 'none';
+}
+
+function showApp() {
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('mark-content').style.display  = 'block';
+
+  // Build class filter from live data
+  const classes = [...new Set(students.map(s => s.cls))].sort();
+  const cf  = document.getElementById('cfilter');
+  const hcf = document.getElementById('hcfilter');
+  cf.innerHTML  = '<option value="all">All classes</option>';
+  hcf.innerHTML = '<option value="all">All classes</option>';
+  classes.forEach(c => { cf.innerHTML += `<option>${c}</option>`; hcf.innerHTML += `<option>${c}</option>`; });
+
+  const cls = TEACHER_CLASS[currentUser];
+  if (cls !== 'all') { cf.value = cls; cf.disabled = true; }
+  else               { cf.value = 'all'; cf.disabled = false; }
+
+  setSun();
+}
+
+// ── SAVE ─────────────────────────────────────────────────
+let saveTimer;
+function save(studentKey, studentName, cls, teacher, status) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({students, att})); } catch(e) {}
+  flashSaved();
+  if (SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action:'save', date:curDate, studentKey, studentName, cls, teacher, status })
+    }).catch(() => {});
+  }, 500);
+}
+
+function flashSaved() {
+  const el = document.getElementById('save-pill');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// ── SUNDAYS ──────────────────────────────────────────────
+function ds(d)   { return d.toISOString().split('T')[0]; }
+function fmtS(s) { return new Date(s+'T00:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}); }
+function ini(n)  { return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+
+function buildSundays() {
+  const list = [], d = new Date(); d.setHours(0,0,0,0);
+  const rec  = new Date(d); rec.setDate(d.getDate() - d.getDay());
+  for (let i = 24; i >= 0; i--) { const s = new Date(rec); s.setDate(rec.getDate()-i*7); list.push(ds(s)); }
+  for (let i = 1;  i <= 4; i++) { const s = new Date(rec); s.setDate(rec.getDate()+i*7); list.push(ds(s)); }
+  return list;
+}
+
+function prevSunday() { if (sundayIdx > 0) { sundayIdx--; setSun(); } }
+function nextSunday() { if (sundayIdx < sundayList.length-1) { sundayIdx++; setSun(); } }
+function setSun() {
+  curDate = sundayList[sundayIdx];
+  document.getElementById('sunday-label').textContent = fmtS(curDate);
+  render();
+}
+
+// ── STUDENT HELPERS ───────────────────────────────────────
+function getS(name, cls)    { return att[curDate] && att[curDate][cls+'|'+name] || null; }
+function setS(name, cls, st) {
+  if (!att[curDate]) att[curDate] = {};
+  const key   = cls+'|'+name;
+  const label = st==='P'?'Present':st==='A'?'Absent':'Late';
+  att[curDate][key] = st;
+  const s = students.find(x => x.name===name && x.cls===cls);
+  save(key, name, cls, s ? s.teacher : '', label);
+  render();
+}
+function markAll(st) {
+  const vis = getVis();
+  if (!att[curDate]) att[curDate] = {};
+  const label = st==='P'?'Present':st==='A'?'Absent':'Late';
+  vis.forEach(s => { att[curDate][s.cls+'|'+s.name]=st; save(s.cls+'|'+s.name, s.name, s.cls, s.teacher, label); });
+  render();
+}
+
+function onSearch(v)   { searchQ = v.trim(); document.getElementById('clear-search').style.display = searchQ ? 'block' : 'none'; render(); }
+function clearSearch() { document.getElementById('search').value=''; searchQ=''; document.getElementById('clear-search').style.display='none'; render(); }
+
+function hl(text, q) {
+  if (!q) return text;
+  const i = text.toLowerCase().indexOf(q.toLowerCase());
+  if (i < 0) return text;
+  return text.slice(0,i) + '<mark>' + text.slice(i, i+q.length) + '</mark>' + text.slice(i+q.length);
+}
+
+function getVis() {
+  const cf = document.getElementById('cfilter').value;
+  return students.filter(s => {
+    if (cf !== 'all' && s.cls !== cf) return false;
+    if (!searchQ) return true;
+    const q = searchQ.toLowerCase();
+    return s.name.toLowerCase().includes(q) || s.roll.toLowerCase().includes(q);
+  });
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function render() {
+  const vis     = getVis();
+  const classes = [...new Set(vis.map(s => s.cls))];
+  let html = '';
+
+  if (!vis.length) {
+    html = `<div class="no-results">No students match "<strong>${searchQ}</strong>"</div>`;
+  } else {
+    classes.forEach(cls => {
+      const grp = vis.filter(s => s.cls === cls);
+      html += `<div class="class-header">Class ${cls}<span class="teacher-tag">${grp[0].teacher}</span></div>`;
+      grp.forEach(s => {
+        const st = getS(s.name, s.cls);
+        const sn = s.name.replace(/'/g, "\\'");
+        html += `<div class="srow${st?' m'+st:''}">
+          <div class="av${st?' '+st:''}" onclick="openProf('${sn}','${s.cls}')">${ini(s.name)}</div>
+          <div class="roll">${hl(s.roll, searchQ)}</div>
+          <div class="sname" onclick="openProf('${sn}','${s.cls}')">${hl(s.name, searchQ)}</div>
+          <div class="att-btns">
+            <button class="ab${st==='P'?' aP':''}" onclick="setS('${sn}','${s.cls}','P')">${st==='P'?'✓ ':''}Present</button>
+            <button class="ab${st==='L'?' aL':''}" onclick="setS('${sn}','${s.cls}','L')">${st==='L'?'✓ ':''}Late</button>
+            <button class="ab${st==='A'?' aA':''}" onclick="setS('${sn}','${s.cls}','A')">${st==='A'?'✓ ':''}Absent</button>
+          </div>
+        </div>`;
+      });
+    });
+  }
+
+  document.getElementById('slist').innerHTML = html;
+  const vals = vis.map(s => getS(s.name, s.cls)).filter(Boolean);
+  document.getElementById('st').textContent = vis.length;
+  document.getElementById('sp').textContent = vals.filter(v => v==='P').length;
+  document.getElementById('sa').textContent = vals.filter(v => v==='A').length;
+  document.getElementById('sl').textContent = vals.filter(v => v==='L').length;
+}
+
+// ── PROFILE ───────────────────────────────────────────────
+function openProf(name, cls) {
+  const s = students.find(x => x.name === name && x.cls === cls);
+  if (!s) return;
+
+  const log = [];
+  Object.keys(att).sort().reverse().forEach(date => {
+    const st = att[date] && att[date][cls+'|'+name];
+    if (st) log.push({ date, st });
+  });
+
+  const p = log.filter(x => x.st==='P').length;
+  const a = log.filter(x => x.st==='A').length;
+  const l = log.filter(x => x.st==='L').length;
+  const tot  = log.length;
+  const rate = tot > 0 ? Math.round(((p+l)/tot)*100) : null;
+  const lastSt = log.length ? log[0].st : null;
+
+  const av = document.getElementById('prof-av');
+  av.className = 'prof-av' + (lastSt ? ' '+lastSt : '');
+  av.textContent = ini(name);
+
+  document.getElementById('prof-name').textContent = name;
+  document.getElementById('prof-sub').textContent  = `Class ${cls} · Roll ${s.roll}`;
+  document.getElementById('p-roll').textContent    = s.roll    || '—';
+  document.getElementById('p-cls').textContent     = cls;
+  document.getElementById('p-teacher').textContent = s.teacher || '—';
+  document.getElementById('p-dob').textContent     = s.dob     || '—';
+  document.getElementById('p-father').textContent  = s.father  || '—';
+  document.getElementById('p-mother').textContent  = s.mother  || '—';
+  document.getElementById('p-email').textContent   = s.email   || '—';
+  document.getElementById('p-np').textContent = p;
+  document.getElementById('p-na').textContent = a;
+  document.getElementById('p-nl').textContent = l;
+
+  const rEl = document.getElementById('p-rate');
+  const bEl = document.getElementById('p-bar');
+  if (rate !== null) {
+    rEl.textContent = rate + '%';
+    const col = rate >= 80 ? 'var(--green)' : rate >= 60 ? 'var(--amber)' : 'var(--red)';
+    rEl.style.color = col; bEl.style.background = col; bEl.style.width = rate + '%';
+  } else { rEl.textContent = '—'; bEl.style.width = '0%'; }
+
+  document.getElementById('p-log').innerHTML = log.length
+    ? log.map(x => `<div class="log-row"><span class="log-date">${fmtS(x.date)}</span><span class="badge b${x.st}">${x.st==='P'?'Present':x.st==='A'?'Absent':'Late'}</span></div>`).join('')
+    : '<p style="font-size:13px;color:var(--text3);">No sessions recorded yet.</p>';
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+function overlayClick(e) { if (e.target === document.getElementById('overlay')) closeProfile(); }
+function closeProfile()  { document.getElementById('overlay').classList.remove('open'); }
+
+// ── TABS ──────────────────────────────────────────────────
+function showTab(t) {
+  document.querySelectorAll('.nav-tab').forEach((el,i) => el.classList.toggle('active', (i===0) === (t==='mark')));
+  document.getElementById('mark-panel').style.display = t==='mark' ? '' : 'none';
+  document.getElementById('hist-panel').style.display = t==='history' ? 'block' : 'none';
+  if (t === 'history') renderHist();
+}
+
+function renderHist() {
+  const cf = document.getElementById('hcfilter').value;
+  const sf = document.getElementById('hstatfilter').value;
+  const rows = [];
+  Object.keys(att).sort().reverse().forEach(date => {
+    Object.entries(att[date]).forEach(([key, st]) => {
+      const [cls, ...np] = key.split('|'); const nm = np.join('|');
+      if ((cf==='all'||cf===cls) && (sf==='all'||sf===st)) {
+        const s = students.find(x => x.cls===cls && x.name===nm);
+        rows.push({ date, name:nm, cls, teacher:s?s.teacher:'', roll:s?s.roll:'', st });
+      }
+    });
+  });
+  const body  = document.getElementById('hbody');
+  const empty = document.getElementById('hist-empty');
+  if (!rows.length) { body.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  body.innerHTML = rows.map(r =>
+    `<tr><td>${fmtS(r.date)}</td><td>${r.roll}</td><td>${r.name}</td><td>${r.cls}</td><td>${r.teacher}</td>
+     <td><span class="badge b${r.st}">${r.st==='P'?'Present':r.st==='A'?'Absent':'Late'}</span></td></tr>`
+  ).join('');
+}
+
+// ── EXPORT ────────────────────────────────────────────────
+function exportCSV() {
+  const dates = Object.keys(att).sort();
+  if (!dates.length) { showToast('No attendance data yet.'); return; }
+  let csv = 'Date,Roll,Student,Class,Teacher,Father,Mother,Email,Status\n';
+  dates.forEach(date => {
+    Object.entries(att[date]).forEach(([key, st]) => {
+      const [cls, ...np] = key.split('|'); const nm = np.join('|');
+      const s = students.find(x => x.cls===cls && x.name===nm);
+      csv += `${date},${s?s.roll:''},${nm},${cls},${s?s.teacher:''},${s?s.father:''},${s?s.mother:''},${s?s.email:''},${st==='P'?'Present':st==='A'?'Absent':'Late'}\n`;
+    });
+  });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+  a.download = 'attendance_' + ds(new Date()) + '.csv';
+  a.click();
+  showToast('CSV downloaded!');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
