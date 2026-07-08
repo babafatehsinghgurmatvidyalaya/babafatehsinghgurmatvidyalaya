@@ -211,38 +211,38 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 <!-- ANNOUNCEMENT -->
 <div class="announcement">
   📢 Term 3 2026 starts <strong>20 July 2026</strong> — 
-  <a href="javascript:void(0)" onclick="showPage('enrolment')">Enrol a new student →</a>
+  <a href="javascript:void(0)" data-page="enrolment">Enrol a new student →</a>
 </div>
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="javascript:void(0)" onclick="showPage('home')">
+  <a class="nav-logo" href="javascript:void(0)" data-page="home">
     <span class="nav-khanda">☬</span>
     <span class="nav-name">Baba Fateh Singh Ji<br><span style="font-family:'PuratanHastlikhat',serif;font-size:13px;">pMjwbI / gurmiq ividAwlw</span></span>
   </a>
   <div class="nav-links">
-    <a class="nav-link active" href="javascript:void(0)" onclick="showPage('home')">Home</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('about')">About</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('classes')">Classes</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('events')">Events</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('gallery')">Gallery</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('contact')">Contact</a>
-    <a class="nav-link nav-enroll" href="javascript:void(0)" onclick="showPage('enrolment')">Enrol Now</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('portal')" style="color:rgba(200,146,42,0.9);">Teacher Portal</a>
+    <a class="nav-link active" href="javascript:void(0)" data-page="home">Home</a>
+    <a class="nav-link" href="javascript:void(0)" data-page="about">About</a>
+    <a class="nav-link" href="javascript:void(0)" data-page="classes">Classes</a>
+    <a class="nav-link" href="javascript:void(0)" data-page="events">Events</a>
+    <a class="nav-link" href="javascript:void(0)" data-page="gallery">Gallery</a>
+    <a class="nav-link" href="javascript:void(0)" data-page="contact">Contact</a>
+    <a class="nav-link nav-enroll" href="javascript:void(0)" data-page="enrolment">Enrol Now</a>
+    <a class="nav-link" href="javascript:void(0)" data-page="portal" style="color:rgba(200,146,42,0.9);">Teacher Portal</a>
   </div>
-  <button class="hamburger" onclick="toggleMenu()">☰</button>
+  <button class="hamburger" data-toggle-menu="true">☰</button>
 </nav>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('home');toggleMenu()">Home</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('about');toggleMenu()">About</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('classes');toggleMenu()">Classes</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('events');toggleMenu()">Events</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('gallery');toggleMenu()">Gallery</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('contact');toggleMenu()">Contact</a>
-  <a class="nav-link nav-enroll" href="javascript:void(0)" onclick="showPage('enrolment');toggleMenu()">Enrol Now</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('portal');toggleMenu()" style="color:var(--gold2)">Teacher Portal</a>
+  <a class="nav-link" href="javascript:void(0)" data-page="home" data-toggle-menu="true">Home</a>
+  <a class="nav-link" href="javascript:void(0)" data-page="about" data-toggle-menu="true">About</a>
+  <a class="nav-link" href="javascript:void(0)" data-page="classes" data-toggle-menu="true">Classes</a>
+  <a class="nav-link" href="javascript:void(0)" data-page="events" data-toggle-menu="true">Events</a>
+  <a class="nav-link" href="javascript:void(0)" data-page="gallery" data-toggle-menu="true">Gallery</a>
+  <a class="nav-link" href="javascript:void(0)" data-page="contact" data-toggle-menu="true">Contact</a>
+  <a class="nav-link nav-enroll" href="javascript:void(0)" data-page="enrolment" data-toggle-menu="true">Enrol Now</a>
+  <a class="nav-link" href="javascript:void(0)" data-page="portal" data-toggle-menu="true" style="color:var(--gold2)">Teacher Portal</a>
 </div>
 
 <!-- ══════════ HOME PAGE ══════════ -->
@@ -260,8 +260,8 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
         <div class="hero-title">Baba Fateh Singh Ji<br>Punjabi / Gurmat School</div>
         <p class="hero-sub">Free Punjabi, Gurmat and Kirtan classes run by volunteers every Sunday at Keysborough Gurdwara Sahib. Rooted in Sikhi, open to all.</p>
         <div class="hero-btns">
-          <a class="btn-gold" href="javascript:void(0)" onclick="showPage('enrolment')">Enrol Your Child</a>
-          <a class="btn-outline" href="javascript:void(0)" onclick="showPage('about')">Learn More</a>
+          <a class="btn-gold" href="javascript:void(0)" data-page="enrolment">Enrol Your Child</a>
+          <a class="btn-outline" href="javascript:void(0)" data-page="about">Learn More</a>
         </div>
       </div>
       <div class="hero-cards">
@@ -294,7 +294,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
         </div>
         <div class="notice">
           <h4>📝 New Student Enrolment</h4>
-          <p>Enrolments for Term 3 are open. <a href="javascript:void(0)" onclick="showPage('enrolment')" style="color:var(--gold)">Register here →</a></p>
+          <p>Enrolments for Term 3 are open. <a href="javascript:void(0)" data-page="enrolment" style="color:var(--gold)">Register here →</a></p>
         </div>
         <div class="notice">
           <h4>☬ <span style="font-family:'PuratanHastlikhat','Tiro Devanagari Hindi',serif;">vwihgurU jI kw Kwlsw vwihgurU jI kI Piqh</span></h4>
@@ -509,7 +509,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
             <div class="form-group"><label>Email Address</label><input id="e-email" type="email" placeholder="email@example.com" required></div>
           </div>
           <div class="form-group"><label>Any additional notes</label><textarea id="e-notes" placeholder="e.g. siblings already enrolled, specific needs, etc."></textarea></div>
-          <button class="btn-gold" id="enrol-btn" style="width:100%;height:46px;font-size:15px;" onclick="submitEnrol()">Submit Enrolment</button>
+          <button class="btn-gold" id="enrol-btn" style="width:100%;height:46px;font-size:15px;" id="enrol-btn-trigger">Submit Enrolment</button>
           <p id="enrol-status" style="font-size:12px;color:var(--text3);margin-top:10px;text-align:center;">We'll confirm your child's class placement within a few days.</p>
         </div>
         <div class="enrol-info">
@@ -591,7 +591,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
             </select>
           </div>
           <div class="form-group"><label>Message</label><textarea placeholder="Your message here…" style="min-height:140px;"></textarea></div>
-          <button class="btn-gold" style="width:100%;height:46px;font-size:15px;" onclick="submitContact()">Send Message</button>
+          <button class="btn-gold" style="width:100%;height:46px;font-size:15px;" id="contact-btn-trigger">Send Message</button>
         </div>
       </div>
     </div>
@@ -609,12 +609,12 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
       </div>
       <div class="footer-col">
         <h4>Quick Links</h4>
-        <a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
-        <a href="javascript:void(0)" onclick="showPage('classes')">Classes</a>
-        <a href="javascript:void(0)" onclick="showPage('events')">Events</a>
-        <a href="javascript:void(0)" onclick="showPage('gallery')">Gallery</a>
-        <a href="javascript:void(0)" onclick="showPage('enrolment')">Enrol Now</a>
-        <a href="javascript:void(0)" onclick="showPage('contact')">Contact</a>
+        <a href="javascript:void(0)" data-page="about">About Us</a>
+        <a href="javascript:void(0)" data-page="classes">Classes</a>
+        <a href="javascript:void(0)" data-page="events">Events</a>
+        <a href="javascript:void(0)" data-page="gallery">Gallery</a>
+        <a href="javascript:void(0)" data-page="enrolment">Enrol Now</a>
+        <a href="javascript:void(0)" data-page="contact">Contact</a>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
@@ -641,6 +641,30 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
   document.head.appendChild(style);
 })();
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwrLw2zYKh-hwLncVEpznH-C0iZBuFUiDklQVsq-bCviScUEelPzEtCJVNT8I8tinhL4w/exec';
+// Event delegation for all navigation
+document.addEventListener('click', function(e) {
+  var el = e.target.closest('[data-page]');
+  if (el) {
+    e.preventDefault();
+    var page = el.getAttribute('data-page');
+    showPage(page);
+    if (el.getAttribute('data-toggle-menu')) toggleMenu();
+    return;
+  }
+  if (e.target.closest('[data-toggle-menu]') && !e.target.closest('[data-page]')) {
+    toggleMenu();
+    return;
+  }
+  if (e.target.id === 'enrol-btn-trigger' || e.target.closest('#enrol-btn-trigger')) {
+    submitEnrol();
+    return;
+  }
+  if (e.target.id === 'contact-btn-trigger' || e.target.closest('#contact-btn-trigger')) {
+    submitContact();
+    return;
+  }
+});
+
 function showPage(page) {
   document.querySelectorAll('.page').forEach(p => {
     p.classList.remove('active');
