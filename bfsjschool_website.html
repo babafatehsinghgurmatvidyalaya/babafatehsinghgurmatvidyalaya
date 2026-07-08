@@ -319,7 +319,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 </div>
 
 <!-- ══════════ ABOUT PAGE ══════════ -->
-<div class="page" id="about-page">
+<div class="page" id="about-page" style="display:none">
   <div style="height:64px;"></div>
   <section class="section">
     <div class="section-inner">
@@ -362,7 +362,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 </div>
 
 <!-- ══════════ CLASSES PAGE ══════════ -->
-<div class="page" id="classes-page">
+<div class="page" id="classes-page" style="display:none">
   <div style="height:64px;"></div>
   <section class="section">
     <div class="section-inner">
@@ -423,7 +423,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 </div>
 
 <!-- ══════════ EVENTS PAGE ══════════ -->
-<div class="page" id="events-page">
+<div class="page" id="events-page" style="display:none">
   <div style="height:64px;"></div>
   <section class="section">
     <div class="section-inner">
@@ -452,7 +452,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 </div>
 
 <!-- ══════════ GALLERY PAGE ══════════ -->
-<div class="page" id="gallery-page">
+<div class="page" id="gallery-page" style="display:none">
   <div style="height:64px;"></div>
   <section class="section">
     <div class="section-inner">
@@ -475,7 +475,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 </div>
 
 <!-- ══════════ ENROLMENT PAGE ══════════ -->
-<div class="page" id="enrolment-page">
+<div class="page" id="enrolment-page" style="display:none">
   <div style="height:64px;"></div>
   <section class="section">
     <div class="section-inner">
@@ -526,7 +526,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 </div>
 
 <!-- ══════════ TEACHER PORTAL PAGE ══════════ -->
-<div class="page" id="portal-page">
+<div class="page" id="portal-page" style="display:none">
   <div style="height:64px;"></div>
   <section class="section">
     <div class="section-inner">
@@ -550,7 +550,7 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 </div>
 
 <!-- ══════════ CONTACT PAGE ══════════ -->
-<div class="page" id="contact-page">
+<div class="page" id="contact-page" style="display:none">
   <div style="height:64px;"></div>
   <section class="section">
     <div class="section-inner">
@@ -634,6 +634,12 @@ footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem
 <div id="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1410;color:#FAF7F2;font-size:13px;padding:9px 20px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:300;white-space:nowrap;font-family:'DM Sans',sans-serif;"></div>
 
 <script>
+// Hide all pages immediately before render
+(function(){
+  var style = document.createElement('style');
+  style.textContent = '.page { display: none !important; } #home-page { display: block !important; }';
+  document.head.appendChild(style);
+})();
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwrLw2zYKh-hwLncVEpznH-C0iZBuFUiDklQVsq-bCviScUEelPzEtCJVNT8I8tinhL4w/exec';
 function showPage(page) {
   document.querySelectorAll('.page').forEach(p => {
