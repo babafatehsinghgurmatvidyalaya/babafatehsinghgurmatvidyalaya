@@ -3,759 +3,706 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baba Fateh Singh Ji Punjabi/Gurmat School</title>
-<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<title>☬ Attendance Register</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-@font-face {
-  font-family: 'PuratanHastlikhat';
-  src: url('PuratanHastlikhat.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-:root {
-  --navy:   #0E1A35;
-  --navy2:  #162647;
-  --gold:   #C8922A;
-  --gold2:  #E8A830;
-  --gold-light: #FDF3E0;
-  --cream:  #FDFAF4;
-  --warm:   #F5EFE0;
-  --border: #E2D8C4;
-  --text:   #1C1410;
-  --text2:  #5A4E3C;
-  --text3:  #9A8C78;
-  --green:  #1A5C2E;
-  --red:    #8B1F1F;
-  --shadow: 0 4px 24px rgba(14,26,53,0.10);
-  --shadow-lg: 0 12px 48px rgba(14,26,53,0.16);
+:root{
+  --bg:#FAF7F2;--bg2:#F2EDE4;--bg3:#E8E0D4;
+  --border:#D4C9B8;--border2:#C4B8A4;
+  --text:#1A1410;--text2:#6B5E4E;--text3:#9C8C7A;
+  --green:#2D5A1B;--green-bg:#EAF3DE;--green-mid:#97C459;
+  --red:#8B1F1F;--red-bg:#FAEAEA;--red-mid:#E89090;
+  --amber:#7A4010;--amber-bg:#FDF0DC;--amber-mid:#F0B050;
+  --gold:#C49A2A;
+  --shadow:0 2px 16px rgba(0,0,0,0.08);
+  --shadow-lg:0 8px 40px rgba(0,0,0,0.14);
+  --radius:10px;--radius-sm:6px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;box-shadow:0 2px 20px rgba(0,0,0,0.25);}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-khanda{font-size:22px;color:var(--gold2);}
-.nav-name{font-family:'Tiro Devanagari Hindi',serif;font-size:15px;color:#FAF7F2;line-height:1.2;max-width:200px;}
-.nav-links{display:flex;gap:0;align-items:center;}
-.nav-link{color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:500;padding:8px 14px;border-radius:6px;transition:all .15s;white-space:nowrap;}
-.nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,0.1);}
-.nav-enroll{background:var(--gold);color:var(--navy)!important;border-radius:6px;padding:8px 16px;font-weight:600;font-size:13px;margin-left:8px;}
-.nav-enroll:hover{background:var(--gold2)!important;}
-.hamburger{display:none;background:none;border:none;cursor:pointer;color:#fff;font-size:22px;padding:4px;}
-.mobile-menu{display:none;position:fixed;inset:64px 0 0 0;background:var(--navy);z-index:99;flex-direction:column;padding:1.5rem;gap:4px;}
-.mobile-menu.open{display:flex;}
-.mobile-menu .nav-link{font-size:15px;padding:12px 16px;border-radius:8px;}
+/* ── LOGIN ── */
+#login-page{min-height:100vh;background:var(--text);display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative;overflow:hidden;}
+#login-page::before{content:'☬';position:absolute;font-size:420px;color:rgba(196,154,42,0.06);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;line-height:1;}
+.login-card{background:var(--bg);border-radius:20px;width:min(420px,100%);padding:2.5rem 2rem;box-shadow:0 24px 80px rgba(0,0,0,0.4);border:1px solid var(--border);animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.login-logo{text-align:center;margin-bottom:1.75rem;}
+.login-logo .kb{font-size:44px;color:var(--gold);display:block;margin-bottom:8px;}
+.login-logo h2{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:4px;}
+.login-logo p{font-size:13px;color:var(--text3);}
+.lbl{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;display:block;}
+.login-select,.login-input{font-family:'DM Sans',sans-serif;font-size:14px;width:100%;height:44px;padding:0 14px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--bg);color:var(--text);margin-bottom:16px;transition:border-color .15s;}
+.login-select{cursor:pointer;}
+.login-select:focus,.login-input:focus{outline:none;border-color:var(--gold);}
+.login-input.err{border-color:var(--red);}
+.login-btn{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;width:100%;height:46px;border-radius:var(--radius);border:none;background:var(--text);color:#FAF7F2;cursor:pointer;transition:opacity .15s,transform .1s;}
+.login-btn:hover{opacity:.88;}
+.login-btn:active{transform:scale(.98);}
+.login-err{font-size:13px;color:var(--red);text-align:center;margin-top:12px;display:none;font-weight:500;}
+.login-err.show{display:block;}
 
-/* ── HERO ── */
-.hero{min-height:100vh;background:var(--navy);display:flex;align-items:center;position:relative;overflow:hidden;padding-top:64px;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%, rgba(200,146,42,0.12) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(200,146,42,0.07) 0%, transparent 50%);}
-.hero-pattern{position:absolute;inset:0;opacity:0.03;background-image:repeating-linear-gradient(45deg,#C8922A 0,#C8922A 1px,transparent 0,transparent 50%);background-size:20px 20px;}
-.hero-khanda-bg{position:absolute;right:-80px;top:50%;transform:translateY(-50%);font-size:500px;color:rgba(200,146,42,0.04);line-height:1;pointer-events:none;user-select:none;}
-.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
-.hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
-.hero-gurmukhi{font-family:'PuratanHastlikhat','Tiro Devanagari Hindi',serif;font-size:clamp(28px,4vw,48px);color:#FAF7F2;line-height:1.25;margin-bottom:8px;}
-.hero-title{font-family:'Tiro Devanagari Hindi',serif;font-size:clamp(22px,3vw,34px);color:rgba(250,247,242,0.75);line-height:1.3;margin-bottom:24px;}
-.hero-sub{font-size:16px;color:rgba(250,247,242,0.55);line-height:1.7;margin-bottom:36px;max-width:480px;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-gold{background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s,transform .1s;}
-.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
-.btn-outline{background:transparent;color:#FAF7F2;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:12px 24px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s;}
-.btn-outline:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.4);}
-.hero-cards{display:flex;flex-direction:column;gap:12px;}
-.hero-card{background:rgba(255,255,255,0.05);border:1px solid rgba(200,146,42,0.2);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(4px);}
-.hero-card-icon{width:40px;height:40px;border-radius:8px;background:rgba(200,146,42,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.hero-card-text h4{font-size:13px;font-weight:600;color:#FAF7F2;margin-bottom:2px;}
-.hero-card-text p{font-size:12px;color:rgba(250,247,242,0.5);}
+/* ── APP SHELL ── */
+#app-shell{display:none;}
+.app-header{background:var(--text);color:#FAF7F2;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:50;box-shadow:0 2px 20px rgba(0,0,0,0.2);}
+.app-header h1{font-family:'DM Serif Display',serif;font-size:20px;display:flex;align-items:center;gap:10px;}
+.kh{color:var(--gold);}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.save-pill{font-size:12px;padding:4px 12px;border-radius:99px;background:rgba(196,154,42,.2);color:var(--gold);border:1px solid rgba(196,154,42,.3);opacity:0;transition:opacity .4s;display:flex;align-items:center;gap:5px;}
+.save-pill.show{opacity:1;}
+.save-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+.user-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:99px;padding:4px 12px 4px 6px;cursor:pointer;transition:background .12s;}
+.user-chip:hover{background:rgba(255,255,255,.15);}
+.chip-av{width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--text);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.chip-name{font-size:12px;color:rgba(250,247,242,.85);font-weight:500;}
+.btn-export{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 16px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#FAF7F2;cursor:pointer;transition:background .15s;}
+.btn-export:hover{background:rgba(255,255,255,.16);}
+.nav-tabs{background:var(--text);display:flex;padding:0 2rem;border-top:1px solid rgba(255,255,255,.08);}
+.nav-tab{font-size:13px;padding:10px 16px;color:rgba(250,247,242,.5);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.nav-tab:hover{color:rgba(250,247,242,.8);}
+.nav-tab.active{color:#FAF7F2;border-bottom-color:var(--gold);}
 
-/* ── SECTIONS ── */
-.section{padding:5rem 2rem;}
-.section-inner{max-width:1100px;margin:0 auto;}
-.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.section-title{font-family:'Tiro Devanagari Hindi',serif;font-size:clamp(26px,3.5vw,40px);color:var(--navy);line-height:1.25;margin-bottom:16px;}
-.section-body{font-size:16px;color:var(--text2);line-height:1.75;max-width:680px;}
-.divider{height:1px;background:var(--border);margin:2rem 0;}
-.bg-warm{background:var(--warm);}
-.bg-navy{background:var(--navy);}
+/* ── MAIN ── */
+.main{max-width:960px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
 
-/* ── ANNOUNCEMENT BANNER ── */
-.announcement{background:var(--gold);color:var(--navy);text-align:center;padding:10px 2rem;font-size:13px;font-weight:600;position:relative;z-index:99;}
-.announcement a{color:var(--navy);text-decoration:underline;}
+/* Loading */
+.loading-state{text-align:center;padding:3rem 1rem;color:var(--text3);}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-err{background:var(--red-bg);border:1px solid var(--red-mid);border-radius:var(--radius);padding:14px 18px;font-size:14px;color:var(--red);margin-bottom:16px;line-height:1.5;}
 
-/* ── ABOUT ── */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem;}
-.about-story{font-size:15px;color:var(--text2);line-height:1.8;}
-.about-story p{margin-bottom:1rem;}
-.about-story p:last-child{margin-bottom:0;}
-.about-highlights{display:flex;flex-direction:column;gap:16px;}
-.highlight-card{background:white;border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;gap:16px;align-items:flex-start;box-shadow:var(--shadow);}
-.highlight-icon{width:44px;height:44px;border-radius:10px;background:var(--gold-light);border:1px solid rgba(200,146,42,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.highlight-text h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px;}
-.highlight-text p{font-size:13px;color:var(--text3);line-height:1.5;}
+/* Controls */
+.controls-bar{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;box-shadow:var(--shadow);}
+.sunday-nav{display:flex;align-items:center;gap:6px;}
+.nav-arrow{width:30px;height:30px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .12s;}
+.nav-arrow:hover{background:var(--bg3);}
+.sunday-label{font-size:13px;font-weight:600;min-width:130px;text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:5px 10px;}
+.ctrl-select{font-family:'DM Sans',sans-serif;font-size:13px;height:32px;padding:0 10px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;}
+.search-wrap{position:relative;flex:1;min-width:180px;}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text3);pointer-events:none;}
+#search{font-family:'DM Sans',sans-serif;width:100%;height:32px;padding:0 28px 0 30px;font-size:13px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text);}
+#search:focus{outline:none;border-color:var(--text2);}
+#search::placeholder{color:var(--text3);}
+.clear-search{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:14px;display:none;padding:0;}
+.mark-all-btns{display:flex;gap:5px;margin-left:auto;}
+.mark-btn{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:4px 12px;border-radius:var(--radius-sm);cursor:pointer;height:28px;transition:all .12s;}
+.mark-btn.p{border:1px solid var(--green);color:var(--green);background:transparent;}.mark-btn.p:hover{background:var(--green-bg);}
+.mark-btn.l{border:1px solid var(--amber);color:var(--amber);background:transparent;}.mark-btn.l:hover{background:var(--amber-bg);}
+.mark-btn.a{border:1px solid var(--red);color:var(--red);background:transparent;}.mark-btn.a:hover{background:var(--red-bg);}
 
-/* ── CLASSES ── */
-.classes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:3rem;}
-.class-card{background:white;border:1px solid var(--border);border-radius:16px;padding:28px 24px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
-.class-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);}
-.class-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
-.class-icon{font-size:32px;margin-bottom:14px;display:block;}
-.class-name{font-family:'Tiro Devanagari Hindi',serif;font-size:20px;color:var(--navy);margin-bottom:8px;}
-.class-desc{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:16px;}
-.class-meta{font-size:12px;color:var(--text3);display:flex;flex-direction:column;gap:4px;}
-.class-meta span{display:flex;align-items:center;gap:5px;}
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.stat-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);}
+.stat-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:500;}
+.stat-val{font-family:'DM Serif Display',serif;font-size:28px;margin-top:2px;}
+.stat-val.g{color:var(--green);}.stat-val.r{color:var(--red);}.stat-val.a{color:var(--amber);}
 
-/* ── TEACHERS ── */
-.teachers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:3rem;}
-.teacher-card{background:white;border:1px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;box-shadow:var(--shadow);}
-.teacher-av{width:56px;height:56px;border-radius:50%;background:var(--navy);color:var(--gold2);font-family:'Tiro Devanagari Hindi',serif;font-size:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
-.teacher-name{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px;}
-.teacher-class{font-size:12px;color:var(--text3);}
+/* Student list */
+.class-header{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:14px 0 8px;border-bottom:1px solid var(--border);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.teacher-tag{font-size:11px;font-weight:400;color:var(--text3);background:var(--bg2);border:1px solid var(--border);border-radius:99px;padding:1px 8px;text-transform:none;}
+.srow{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:var(--radius-sm);border:1px solid transparent;margin-bottom:3px;transition:all .12s;}
+.srow:hover{background:var(--bg2);}
+.srow.mP{background:var(--green-bg);border-color:var(--green-mid);}
+.srow.mA{background:var(--red-bg);border-color:var(--red-mid);}
+.srow.mL{background:var(--amber-bg);border-color:var(--amber-mid);}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;cursor:pointer;transition:transform .12s;background:#E8E4FC;color:#3A2E8C;}
+.av:hover{transform:scale(1.12);}
+.av.P{background:#C5DFA0;color:#1D4A0B;}.av.A{background:#F5C0C0;color:#6B1010;}.av.L{background:#FAD898;color:#5A2D00;}
+.roll{font-size:11px;color:var(--text3);width:42px;flex-shrink:0;}
+.sname{font-size:13px;color:var(--text);flex:1;cursor:pointer;}
+.sname:hover{text-decoration:underline;text-decoration-color:var(--border2);}
+.sname mark{background:var(--amber-bg);color:var(--amber);border-radius:2px;padding:0 2px;}
+.att-btns{display:flex;gap:3px;}
+.ab{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;width:66px;padding:5px 0;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg);color:var(--text3);cursor:pointer;text-align:center;transition:all .12s;}
+.ab:hover{border-color:var(--border2);background:var(--bg2);color:var(--text);}
+.ab.aP{background:var(--green);border-color:var(--green);color:white;font-weight:600;box-shadow:0 1px 6px rgba(45,90,27,.3);}
+.ab.aA{background:var(--red);border-color:var(--red);color:white;font-weight:600;box-shadow:0 1px 6px rgba(139,31,31,.3);}
+.ab.aL{background:var(--amber);border-color:var(--amber);color:white;font-weight:600;box-shadow:0 1px 6px rgba(122,64,16,.3);}
+.no-results{padding:3rem 0;text-align:center;color:var(--text3);font-size:14px;}
 
-/* ── EVENTS ── */
-.events-list{margin-top:2rem;display:flex;flex-direction:column;gap:12px;}
-.event-item{background:white;border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow);}
-.event-date{text-align:center;min-width:52px;flex-shrink:0;}
-.event-date .day{font-family:'Tiro Devanagari Hindi',serif;font-size:26px;color:var(--navy);line-height:1;}
-.event-date .month{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);}
-.event-info h4{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
-.event-info p{font-size:13px;color:var(--text3);}
-.event-badge{margin-left:auto;font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;flex-shrink:0;}
-.badge-upcoming{background:var(--gold-light);color:var(--gold);}
-.badge-new{background:#E8F5E9;color:var(--green);}
-.cal-embed{margin-top:2rem;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);}
+/* History */
+#hist-panel{display:none;}
+.hist-controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.htbl{width:100%;border-collapse:collapse;font-size:13px;background:white;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);}
+.htbl thead{background:var(--text);color:#FAF7F2;}
+.htbl th{text-align:left;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;padding:10px 14px;}
+.htbl td{padding:9px 14px;border-bottom:1px solid var(--border);}
+.htbl tr:last-child td{border-bottom:none;}
+.htbl tbody tr:hover{background:var(--bg);}
+.badge{display:inline-block;font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;}
+.bP{background:var(--green-bg);color:var(--green);}.bA{background:var(--red-bg);color:var(--red);}.bL{background:var(--amber-bg);color:var(--amber);}
 
-/* ── GALLERY ── */
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:2rem;}
-.gallery-placeholder{aspect-ratio:4/3;border-radius:10px;background:linear-gradient(135deg,var(--warm),var(--border));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:1px solid var(--border);}
-.gallery-placeholder span{font-size:28px;}
-.gallery-placeholder p{font-size:12px;color:var(--text3);}
+/* Profile overlay */
+.overlay{position:fixed;inset:0;background:rgba(26,20,16,.6);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(2px);}
+.overlay.open{display:flex;}
+.profile-card{background:var(--bg);border-radius:16px;width:min(480px,100%);max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);border:1px solid var(--border);animation:fadeUp .22s ease;}
+.prof-hdr{padding:1.5rem;background:var(--text);border-radius:16px 16px 0 0;display:flex;align-items:center;gap:14px;position:relative;}
+.prof-av{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:20px;flex-shrink:0;background:#E8E4FC;color:#3A2E8C;}
+.prof-av.P{background:#C5DFA0;color:#1D4A0B;}.prof-av.A{background:#F5C0C0;color:#6B1010;}.prof-av.L{background:#FAD898;color:#5A2D00;}
+.prof-title h2{font-family:'DM Serif Display',serif;font-size:18px;color:#FAF7F2;}
+.prof-title p{font-size:12px;color:rgba(250,247,242,.55);margin-top:3px;}
+.prof-close{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.1);border:none;color:#FAF7F2;cursor:pointer;width:28px;height:28px;border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.prof-close:hover{background:rgba(255,255,255,.2);}
+.prof-body{padding:1.25rem 1.5rem 1.5rem;}
+.prof-section{margin-bottom:1.25rem;}
+.prof-sec-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+.prof-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.prof-field{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;}
+.prof-field.wide{grid-column:1/-1;}
+.prof-field label{font-size:11px;color:var(--text3);display:block;margin-bottom:2px;}
+.prof-field span{font-size:13px;color:var(--text);font-weight:500;word-break:break-all;}
+.att-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.sum-box{border-radius:var(--radius-sm);padding:10px;text-align:center;border:1px solid transparent;}
+.sum-box.g{background:var(--green-bg);border-color:var(--green-mid);}.sum-box.r{background:var(--red-bg);border-color:var(--red-mid);}.sum-box.a{background:var(--amber-bg);border-color:var(--amber-mid);}
+.sum-num{font-family:'DM Serif Display',serif;font-size:26px;}
+.sum-box.g .sum-num{color:var(--green);}.sum-box.r .sum-num{color:var(--red);}.sum-box.a .sum-num{color:var(--amber);}
+.sum-lbl{font-size:11px;color:var(--text3);}
+.rate-box{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:10px;}
+.rate-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.rate-row span{font-size:13px;color:var(--text2);}
+.prog-bar{height:5px;border-radius:99px;background:var(--bg3);overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s ease;}
+.log-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.log-row:last-child{border-bottom:none;}
+.log-date{color:var(--text2);}
 
-/* ── ENROLMENT ── */
-.enrol-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start;}
-.form-group{margin-bottom:16px;}
-.form-group label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:6px;}
-.form-group input,.form-group select,.form-group textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);background:white;color:var(--text);transition:border-color .15s;}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--gold);}
-.form-group textarea{resize:vertical;min-height:100px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.enrol-info{background:var(--navy);border-radius:16px;padding:2rem;color:#FAF7F2;}
-.enrol-info h3{font-family:'Tiro Devanagari Hindi',serif;font-size:22px;margin-bottom:16px;color:#FAF7F2;}
-.enrol-info p{font-size:14px;color:rgba(250,247,242,0.65);line-height:1.7;margin-bottom:1.5rem;}
-.enrol-detail{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start;}
-.enrol-detail-icon{font-size:16px;margin-top:1px;}
-.enrol-detail-text{font-size:14px;color:rgba(250,247,242,0.7);line-height:1.5;}
-.enrol-detail-text strong{color:#FAF7F2;display:block;margin-bottom:1px;}
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:#FAF7F2;font-size:13px;padding:9px 20px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:300;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.toast.show{opacity:1;}
 
-/* ── TEACHER PORTAL ── */
-.portal-card{background:var(--navy);border-radius:16px;padding:3rem;display:flex;align-items:center;gap:3rem;margin-top:2rem;}
-.portal-text h3{font-family:'Tiro Devanagari Hindi',serif;font-size:26px;color:#FAF7F2;margin-bottom:10px;}
-.portal-text p{font-size:15px;color:rgba(250,247,242,0.6);line-height:1.7;max-width:500px;}
-.portal-icon{font-size:64px;flex-shrink:0;opacity:.8;}
-
-/* ── CONTACT ── */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start;}
-.contact-detail{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;}
-.contact-icon{width:40px;height:40px;border-radius:8px;background:var(--gold-light);border:1px solid rgba(200,146,42,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.contact-text strong{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:2px;}
-.contact-text span{font-size:14px;color:var(--text2);}
-
-/* ── FOOTER ── */
-footer{background:var(--navy);color:rgba(250,247,242,0.5);padding:3rem 2rem 2rem;}
-.footer-inner{max-width:1100px;margin:0 auto;}
-.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,0.08);}
-.footer-brand .nav-khanda{font-size:28px;color:var(--gold2);display:block;margin-bottom:8px;}
-.footer-brand h3{font-family:'Tiro Devanagari Hindi',serif;font-size:16px;color:#FAF7F2;margin-bottom:8px;}
-.footer-brand p{font-size:13px;line-height:1.6;}
-.footer-col h4{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#FAF7F2;margin-bottom:12px;}
-.footer-col a{display:block;font-size:13px;color:rgba(250,247,242,0.5);text-decoration:none;margin-bottom:8px;transition:color .15s;}
-.footer-col a:hover{color:#FAF7F2;}
-.footer-bottom{text-align:center;font-size:12px;}
-.footer-bottom .waheguru{color:var(--gold);font-family:'PuratanHastlikhat','Tiro Devanagari Hindi',serif;font-size:18px;display:block;margin-bottom:4px;}
-
-/* ── PAGE SYSTEM ── */
-.page { display: none !important; }
-.page.active { display: block !important; }
-#home-page { display: block !important; }
-
-/* ── NOTICE BOARD ── */
-.notices{display:flex;flex-direction:column;gap:10px;margin-top:1.5rem;}
-.notice{background:white;border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;box-shadow:var(--shadow);}
-.notice h4{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px;}
-.notice p{font-size:13px;color:var(--text3);}
-
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .hero-content{grid-template-columns:1fr;gap:2rem;}
-  .hero-cards{display:grid;grid-template-columns:1fr 1fr;}
-  .about-grid,.enrol-grid,.contact-grid{grid-template-columns:1fr;}
-  .portal-card{flex-direction:column;padding:2rem;}
-  .footer-top{grid-template-columns:1fr 1fr;}
-}
 @media(max-width:640px){
-  .nav-links{display:none;}
-  .hamburger{display:block;}
-  .hero-content{padding:2rem 1rem;}
-  .hero-cards{grid-template-columns:1fr;}
-  .gallery-grid{grid-template-columns:repeat(2,1fr);}
-  .classes-grid{grid-template-columns:1fr;}
-  .teachers-grid{grid-template-columns:repeat(2,1fr);}
-  .form-row{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr;}
-  .section{padding:3rem 1rem;}
+  .app-header,.nav-tabs{padding:0 1rem;}
+  .main{padding:1rem 1rem 3rem;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .controls-bar{padding:10px 12px;}
+  .mark-all-btns{margin-left:0;}
+  .ab{width:56px;font-size:10px;}
+  .prof-grid{grid-template-columns:1fr;}
+  .prof-field.wide{grid-column:1;}
 }
 </style>
 </head>
 <body>
 
-<!-- ANNOUNCEMENT -->
-<div class="announcement">
-  📢 Term 3 2026 starts <strong>20 July 2026</strong> — 
-  <a href="javascript:void(0)" onclick="showPage('enrolment')">Enrol a new student →</a>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="javascript:void(0)" onclick="showPage('home')">
-    <span class="nav-khanda">☬</span>
-    <span class="nav-name">Baba Fateh Singh Ji<br><span style="font-family:'PuratanHastlikhat',serif;font-size:13px;">pMjwbI / gurmiq ividAwlw</span></span>
-  </a>
-  <div class="nav-links">
-    <a class="nav-link active" href="javascript:void(0)" onclick="showPage('home')">Home</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('about')">About</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('classes')">Classes</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('events')">Events</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('gallery')">Gallery</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('contact')">Contact</a>
-    <a class="nav-link nav-enroll" href="javascript:void(0)" onclick="showPage('enrolment')">Enrol Now</a>
-    <a class="nav-link" href="javascript:void(0)" onclick="showPage('portal')">Teacher Portal</a>
+<!-- ── LOGIN PAGE ── -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="kb">☬</span>
+      <h2>Attendance Register</h2>
+      <p>Sign in to mark your class</p>
+    </div>
+    <label class="lbl" for="login-user">Select your name</label>
+    <select class="login-select" id="login-user">
+      <option value="">— Choose teacher —</option>
+      <option value="Rajwinder & Sehaj">Rajwinder & Sehaj (Class 1A)</option>
+      <option value="Harmeet Kaur">Harmeet Kaur (Class 1B)</option>
+      <option value="Simran & Sukhwinder">Simran & Sukhwinder (Class 2)</option>
+      <option value="Pooja">Pooja (Class 3A)</option>
+      <option value="Amaroj">Amaroj (Class 3B)</option>
+      <option value="Anju">Anju (Class 3C)</option>
+      <option value="Jatinder & Jaswinder">Jatinder & Jaswinder (Class 4)</option>
+      <option value="Kuldeep & Satinder">Kuldeep & Satinder (Class 5)</option>
+      <option value="Amritpal">Amritpal (Class 6)</option>
+      <option value="admin">Admin (All classes)</option>
+    </select>
+    <label class="lbl" for="login-pass">Password</label>
+    <input class="login-input" type="password" id="login-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="login-err"></div>
   </div>
-  <button class="hamburger" onclick="toggleMenu(')">☰</button>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobile-menu">
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('home');toggleMenu()">Home</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('about');toggleMenu()">About</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('classes');toggleMenu()">Classes</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('events');toggleMenu()">Events</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('gallery');toggleMenu()">Gallery</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('contact');toggleMenu()">Contact</a>
-  <a class="nav-link nav-enroll" href="javascript:void(0)" onclick="showPage('enrolment');toggleMenu()">Enrol Now</a>
-  <a class="nav-link" href="javascript:void(0)" onclick="showPage('portal');toggleMenu()">Teacher Portal</a>
 </div>
 
-<!-- ══════════ HOME PAGE ══════════ -->
-<div class="page active" id="home-page">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-pattern"></div>
-    <div class="hero-khanda-bg">☬</div>
-    <div class="hero-content">
-      <div>
-        <div class="hero-eyebrow">Keysborough, Melbourne · Est. Gurdwara Sahib</div>
-        <div class="hero-gurmukhi">bwbw Piqh isMG jI pMjwbI / gurmiq ividAwlw</div>
-        <div class="hero-title">Baba Fateh Singh Ji<br>Punjabi / Gurmat School</div>
-        <p class="hero-sub">Free Punjabi, Gurmat and Kirtan classes run by volunteers every Sunday at Keysborough Gurdwara Sahib. Rooted in Sikhi, open to all.</p>
-        <div class="hero-btns">
-          <a class="btn-gold" href="javascript:void(0)" onclick="showPage('enrolment')">Enrol Your Child</a>
-          <a class="btn-outline" href="javascript:void(0)" onclick="showPage('about')">Learn More</a>
-        </div>
+<!-- ── MAIN APP ── -->
+<div id="app-shell">
+  <header class="app-header">
+    <h1><span class="kh">☬</span> Attendance Register</h1>
+    <div class="hdr-right">
+      <div class="save-pill" id="save-pill"><div class="save-dot"></div> Saved</div>
+      <div class="user-chip" onclick="logout()" title="Sign out">
+        <div class="chip-av" id="chip-av">?</div>
+        <span class="chip-name" id="chip-name">—</span>
       </div>
-      <div class="hero-cards">
-        <div class="hero-card">
-          <div class="hero-card-icon">📚</div>
-          <div class="hero-card-text"><h4>Punjabi Language</h4><p>Reading, writing & conversation</p></div>
+      <button class="btn-export" onclick="exportCSV()">Export CSV</button>
+    </div>
+  </header>
+  <nav class="nav-tabs">
+    <div class="nav-tab active" onclick="showTab('mark')">Mark Attendance</div>
+    <div class="nav-tab" onclick="showTab('history')">History</div>
+  </nav>
+
+  <main class="main">
+    <!-- MARK PANEL -->
+    <div id="mark-panel">
+      <div id="load-err" class="load-err" style="display:none;"></div>
+      <div id="loading-state" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading students from Google Sheets…</p>
+      </div>
+      <div id="mark-content" style="display:none;">
+        <div class="controls-bar">
+          <div class="sunday-nav">
+            <button class="nav-arrow" onclick="prevSunday()">‹</button>
+            <div class="sunday-label" id="sunday-label">—</div>
+            <button class="nav-arrow" onclick="nextSunday()">›</button>
+          </div>
+          <select class="ctrl-select" id="cfilter" onchange="render()">
+            <option value="all">All classes</option>
+          </select>
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="text" id="search" placeholder="Search name or roll…" oninput="onSearch(this.value)">
+            <button class="clear-search" id="clear-search" onclick="clearSearch()">✕</button>
+          </div>
+          <div class="mark-all-btns">
+            <button class="mark-btn p" onclick="markAll('P')">All Present</button>
+            <button class="mark-btn l" onclick="markAll('L')">All Late</button>
+            <button class="mark-btn a" onclick="markAll('A')">All Absent</button>
+          </div>
         </div>
-        <div class="hero-card">
-          <div class="hero-card-icon">🙏</div>
-          <div class="hero-card-text"><h4>Gurmat Studies</h4><p>Sikh history, Gurbani & values</p></div>
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-label">Showing</div><div class="stat-val" id="st">0</div></div>
+          <div class="stat-card"><div class="stat-label">Present</div><div class="stat-val g" id="sp">0</div></div>
+          <div class="stat-card"><div class="stat-label">Absent</div><div class="stat-val r" id="sa">0</div></div>
+          <div class="stat-card"><div class="stat-label">Late</div><div class="stat-val a" id="sl">0</div></div>
         </div>
-        
-        <div class="hero-card">
-          <div class="hero-card-icon">🎵</div>
-          <div class="hero-card-text"><h4>Kirtan</h4><p>Sacred music classes (nominal fee)</p></div>
-        </div>
+        <div id="slist"></div>
       </div>
     </div>
-  </section>
 
-  <!-- NOTICE BOARD -->
-  <section class="section bg-warm">
-    <div class="section-inner">
-      <div class="section-eyebrow">Latest Updates</div>
-      <h2 class="section-title">Notice Board</h2>
-      <div class="notices">
-        <div class="notice">
-          <h4>📅 Term 3 2026 — Starts 20 July</h4>
-          <p>All classes resume Sunday 20 July. New student registrations are open.</p>
-        </div>
-        <div class="notice">
-          <h4>📝 New Student Enrolment</h4>
-          <p>Enrolments for Term 3 are open. <a href="javascript:void(0)" onclick="showPage('enrolment')">Register here →</a></p>
-        </div>
-        <div class="notice">
-          <h4>☬ <span style="font-family:'PuratanHastlikhat','Tiro Devanagari Hindi',serif;">vwihgurU jI kw Kwlsw vwihgurU jI kI Piqh</span></h4>
-          <p>All classes are free of cost, run by dedicated volunteers from our community.</p>
-        </div>
+    <!-- HISTORY PANEL -->
+    <div id="hist-panel">
+      <div class="hist-controls">
+        <select class="ctrl-select" id="hcfilter" onchange="renderHist()"><option value="all">All classes</option></select>
+        <select class="ctrl-select" id="hstatfilter" onchange="renderHist()">
+          <option value="all">All statuses</option>
+          <option value="P">Present</option>
+          <option value="A">Absent</option>
+          <option value="L">Late</option>
+        </select>
       </div>
+      <table class="htbl">
+        <thead><tr><th>Date</th><th>Roll</th><th>Student</th><th>Class</th><th>Teacher</th><th>Status</th></tr></thead>
+        <tbody id="hbody"></tbody>
+      </table>
+      <p id="hist-empty" style="display:none;color:var(--text3);font-size:14px;padding:2rem 0;text-align:center;">No records yet.</p>
     </div>
-  </section>
-
-  <!-- QUICK STATS -->
-  <section class="section">
-    <div class="section-inner">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;">
-        <div><div style="font-family:'Tiro Devanagari Hindi',serif;font-size:48px;color:var(--navy);">9</div><div style="font-size:14px;color:var(--text3);margin-top:4px;">Classes</div></div>
-        <div><div style="font-family:'Tiro Devanagari Hindi',serif;font-size:48px;color:var(--navy);">150+</div><div style="font-size:14px;color:var(--text3);margin-top:4px;">Students</div></div>
-        <div><div style="font-family:'Tiro Devanagari Hindi',serif;font-size:48px;color:var(--navy);">3</div><div style="font-size:14px;color:var(--text3);margin-top:4px;">Programs</div></div>
-        <div><div style="font-family:'Tiro Devanagari Hindi',serif;font-size:48px;color:var(--navy);">Free</div><div style="font-size:14px;color:var(--text3);margin-top:4px;">Of charge</div></div>
-      </div>
-    </div>
-  </section>
-
+  </main>
 </div>
 
-<!-- ══════════ ABOUT PAGE ══════════ -->
-<div class="page" id="about-page" style="display:none">
-  <div style="height:64px;"></div>
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-eyebrow">Our Story</div>
-      <h2 class="section-title">About the School</h2>
-      <p class="section-body">Baba Fateh Singh Ji Punjabi/Gurmat School is located at Keysborough Gurdwara Sahib. Classes are run every Sunday, free of cost, by dedicated volunteers from the Sikh community.</p>
-
-      <div class="about-grid">
-        <div class="about-story">
-          <p>Our school offers a warm, nurturing environment where children learn Punjabi language, Gurmat principles, and Kirtan. We believe in preserving our heritage and passing it on to the next generation.</p>
-          <p>The school is named after <strong>Sahibzada Baba Fateh Singh Ji</strong>, the youngest son of Guru Gobind Singh Ji, who demonstrated extraordinary courage and steadfast faith at just 6 years of age. His spirit of bravery and devotion inspires everything we do.</p>
-          <p>Sahibzada Fateh Singh Ji was born in Anandpur Sahib on 12 December 1699. In December 1705, along with his brother Sahibzada Zorawar Singh Ji, he was presented before Nawab Wazir Khan of Sirhind and offered safe passage if he converted to Islam. Both Sahibzaday refused with a courage that belied their years. They were martyred, bricked up alive within a wall — their sacrifice remembered for all time at Gurdwara Fatehgarh Sahib.</p>
-          <p>We honour their memory by educating the next generation in the language, values, and spirit of Sikhi.</p>
-        </div>
-        <div class="about-highlights">
-          <div class="highlight-card">
-            <div class="highlight-icon">📍</div>
-            <div class="highlight-text"><h4>Location</h4><p>Keysborough Gurdwara Sahib, Melbourne, Victoria</p></div>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">📅</div>
-            <div class="highlight-text"><h4>Classes</h4><p>Every Sunday — Punjabi, Gurmat & Kirtan</p></div>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">💛</div>
-            <div class="highlight-text"><h4>Free of charge</h4><p>All classes run by volunteers at no cost to families</p></div>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">👨‍👩‍👧‍👦</div>
-            <div class="highlight-text"><h4>Open to all</h4><p>Welcome to children of all ages and backgrounds</p></div>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">✉️</div>
-            <div class="highlight-text"><h4>Contact</h4><p>babafatehsinghji.school@gmail.com</p></div>
-          </div>
-        </div>
-      </div>
+<!-- ── PROFILE OVERLAY ── -->
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="profile-card">
+    <div class="prof-hdr">
+      <div class="prof-av" id="prof-av"></div>
+      <div class="prof-title"><h2 id="prof-name"></h2><p id="prof-sub"></p></div>
+      <button class="prof-close" onclick="closeProfile()">✕</button>
     </div>
-  </section>
-</div>
-
-<!-- ══════════ CLASSES PAGE ══════════ -->
-<div class="page" id="classes-page" style="display:none">
-  <div style="height:64px;"></div>
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-eyebrow">What We Offer</div>
-      <h2 class="section-title">Our Programs</h2>
-      <p class="section-body">We offer three programs at Keysborough Gurdwara Sahib. Punjabi and Gurmat are completely free. Kirtan is available at a nominal cost through dedicated music teachers.</p>
-      <div class="classes-grid">
-        <div class="class-card">
-          <span class="class-icon">📚</span>
-          <div class="class-name">Punjabi</div>
-          <p class="class-desc">Learn to read, write and speak Punjabi using the Gurmukhi script. Classes run across 6 levels from beginner to advanced.</p>
-          <div class="class-meta">
-            <span>📅 Every Sunday</span>
-            <span>💛 Free of charge</span>
-            <span>👥 Classes 1A, 1B, 2, 3A, 3B, 3C, 4, 5, 6</span>
-          </div>
-        </div>
-        <div class="class-card">
-          <span class="class-icon">🙏</span>
-          <div class="class-name">Gurmat</div>
-          <p class="class-desc">Study Sikh history, Gurbani, and Sikh values. Students learn about our Gurus, Sikh traditions, and the principles of Sikhi.</p>
-          <div class="class-meta">
-            <span>📅 Every Sunday</span>
-            <span>💛 Free of charge</span>
-            <span>👥 All ages welcome</span>
-          </div>
-        </div>
-        
-        <div class="class-card">
-          <span class="class-icon">🎵</span>
-          <div class="class-name">Kirtan</div>
-          <p class="class-desc">Sacred Sikh devotional music — learn to sing and play Gurbani kirtan. Taught by dedicated music teachers.</p>
-          <div class="class-meta">
-            <span>📅 Every Sunday</span>
-            <span>💲 Nominal fee applies</span>
-            <span>👥 All ages welcome</span>
-          </div>
+    <div class="prof-body">
+      <div class="prof-section">
+        <div class="prof-sec-title">Student Details</div>
+        <div class="prof-grid">
+          <div class="prof-field"><label>Roll No.</label><span id="p-roll"></span></div>
+          <div class="prof-field"><label>Class</label><span id="p-cls"></span></div>
+          <div class="prof-field"><label>Teacher</label><span id="p-teacher"></span></div>
+          <div class="prof-field"><label>Date of Birth</label><span id="p-dob"></span></div>
+          <div class="prof-field"><label>Father</label><span id="p-father"></span></div>
+          <div class="prof-field"><label>Mother</label><span id="p-mother"></span></div>
+          <div class="prof-field wide"><label>Email</label><span id="p-email"></span></div>
         </div>
       </div>
-
-      <div class="divider" style="margin-top:3rem;"></div>
-      <div class="section-eyebrow" style="margin-top:2rem;">Teaching Staff</div>
-      <h3 style="font-family:'Tiro Devanagari Hindi',serif;font-size:26px;color:var(--navy);margin-bottom:8px;">Our Teachers</h3>
-      <p style="font-size:15px;color:var(--text2);margin-bottom:0;">All our teachers are dedicated volunteers from the community giving their time for Seva.</p>
-      <div class="teachers-grid">
-        <div class="teacher-card"><div class="teacher-av">RS</div><div class="teacher-name">Rajwinder & Sehaj</div><div class="teacher-class">Class 1A</div></div>
-        <div class="teacher-card"><div class="teacher-av">HK</div><div class="teacher-name">Harmeet Kaur</div><div class="teacher-class">Class 1B</div></div>
-        <div class="teacher-card"><div class="teacher-av">SS</div><div class="teacher-name">Simran & Sukhwinder</div><div class="teacher-class">Class 2</div></div>
-        <div class="teacher-card"><div class="teacher-av">PJ</div><div class="teacher-name">Pooja</div><div class="teacher-class">Class 3A</div></div>
-        <div class="teacher-card"><div class="teacher-av">AM</div><div class="teacher-name">Amaroj</div><div class="teacher-class">Class 3B</div></div>
-        <div class="teacher-card"><div class="teacher-av">AJ</div><div class="teacher-name">Anju</div><div class="teacher-class">Class 3C</div></div>
-        <div class="teacher-card"><div class="teacher-av">JJ</div><div class="teacher-name">Jatinder & Jaswinder</div><div class="teacher-class">Class 4</div></div>
-        <div class="teacher-card"><div class="teacher-av">KS</div><div class="teacher-name">Kuldeep & Satinder</div><div class="teacher-class">Class 5</div></div>
-        <div class="teacher-card"><div class="teacher-av">AP</div><div class="teacher-name">Amritpal</div><div class="teacher-class">Class 6</div></div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ══════════ EVENTS PAGE ══════════ -->
-<div class="page" id="events-page" style="display:none">
-  <div style="height:64px;"></div>
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-eyebrow">What's On</div>
-      <h2 class="section-title">Events & Calendar</h2>
-      <p class="section-body">Stay up to date with school events, term dates, and special occasions.</p>
-      <div class="events-list">
-        <div class="event-item">
-          <div class="event-date"><div class="day">20</div><div class="month">Jul</div></div>
-          <div class="event-info"><h4>Term 3 Begins</h4><p>All classes resume — Punjabi, Gurmat & Kirtan</p></div>
-          <span class="event-badge badge-upcoming">Upcoming</span>
+      <div class="prof-section">
+        <div class="prof-sec-title">Attendance this term</div>
+        <div class="att-sum">
+          <div class="sum-box g"><div class="sum-num" id="p-np">0</div><div class="sum-lbl">Present</div></div>
+          <div class="sum-box r"><div class="sum-num" id="p-na">0</div><div class="sum-lbl">Absent</div></div>
+          <div class="sum-box a"><div class="sum-num" id="p-nl">0</div><div class="sum-lbl">Late</div></div>
         </div>
-        <div class="event-item">
-          <div class="event-date"><div class="day">27</div><div class="month">Jul</div></div>
-          <div class="event-info"><h4>New Student Orientation</h4><p>Welcome session for new enrolments — parents welcome</p></div>
-          <span class="event-badge badge-upcoming">Upcoming</span>
-        </div>
-        
-      </div>
-
-      <div class="cal-embed">
-        <iframe src="https://www.google.com/calendar/embed?color=%23C8922A&showCalendars=1&showPrint=0&showTz=0&mode=month&src=babafatehsinghji.school@gmail.com" style="border:0;width:100%;height:500px;" frameborder="0" scrolling="no" title="School Calendar"></iframe>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ══════════ GALLERY PAGE ══════════ -->
-<div class="page" id="gallery-page" style="display:none">
-  <div style="height:64px;"></div>
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-eyebrow">Memories</div>
-      <h2 class="section-title">Photo Gallery</h2>
-      <p class="section-body">Moments from our classes, events, and school life. More photos coming soon!</p>
-      <div class="gallery-grid">
-        <div class="gallery-placeholder"><span>📸</span><p>Class photos</p></div>
-        <div class="gallery-placeholder"><span>🎉</span><p>Events</p></div>
-        <div class="gallery-placeholder"><span>🙏</span><p>Gurmat sessions</p></div>
-        <div class="gallery-placeholder"><span>🎵</span><p>Kirtan performances</p></div>
-        <div class="gallery-placeholder"><span>🎓</span><p>Graduation & awards</p></div>
-        <div class="gallery-placeholder"><span>☬</span><p>Gurdwara functions</p></div>
-      </div>
-      <p style="text-align:center;margin-top:2rem;font-size:14px;color:var(--text3);">
-        Have photos to share? Email us at <a href="mailto:babafatehsinghji.school@gmail.com" style="color:var(--gold')">babafatehsinghji.school@gmail.com</a>
-      </p>
-    </div>
-  </section>
-</div>
-
-<!-- ══════════ ENROLMENT PAGE ══════════ -->
-<div class="page" id="enrolment-page" style="display:none">
-  <div style="height:64px;"></div>
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-eyebrow">Join Us</div>
-      <h2 class="section-title">New Student Enrolment</h2>
-      <p class="section-body">Fill in the form below to enrol your child. All programs are free of charge. We will be in touch to confirm placement.</p>
-      <div class="enrol-grid">
-        <div>
-          <div class="form-row">
-            <div class="form-group"><label>Child's First Name</label><input id="e-fname" type="text" placeholder="e.g. Arjun" required></div>
-            <div class="form-group"><label>Child's Last Name</label><input id="e-lname" type="text" placeholder="e.g. Singh" required></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Date of Birth</label><input id="e-dob" type="date" required></div>
-            <div class="form-group"><label>Program</label>
-              <select id="e-program" required>
-                <option value="">Select program</option>
-                <option>Punjabi</option>
-                <option>Gurmat</option>
-                <option>Kirtan</option>
-                <option>Multiple programs</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Father's Name</label><input id="e-father" type="text" placeholder="e.g. Gurpreet Singh"></div>
-            <div class="form-group"><label>Mother's Name</label><input id="e-mother" type="text" placeholder="e.g. Simran Kaur"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Contact Number</label><input id="e-phone" type="tel" placeholder="04XX XXX XXX" required></div>
-            <div class="form-group"><label>Email Address</label><input id="e-email" type="email" placeholder="email@example.com" required></div>
-          </div>
-          <div class="form-group"><label>Any additional notes</label><textarea id="e-notes" placeholder="e.g. siblings already enrolled, specific needs, etc."></textarea></div>
-          <button class="btn-gold" id="enrol-btn" style="width:100%;height:46px;font-size:15px;" onclick="submitEnrol(')">Submit Enrolment</button>
-          <p id="enrol-status" style="font-size:12px;color:var(--text3);margin-top:10px;text-align:center;">We'll confirm your child's class placement within a few days.</p>
-        </div>
-        <div class="enrol-info">
-          <h3>What to expect</h3>
-          <p>Once you submit this form, our admin team will be in touch to confirm your child's class and provide any information you need before their first day.</p>
-          <div class="enrol-detail"><span class="enrol-detail-icon">📅</span><div class="enrol-detail-text"><strong>When do classes run?</strong>Every Sunday at Keysborough Gurdwara Sahib</div></div>
-          <div class="enrol-detail"><span class="enrol-detail-icon">💛</span><div class="enrol-detail-text"><strong>How much does it cost?</strong>Punjabi & Gurmat are completely free. Kirtan has a nominal fee.</div></div>
-          <div class="enrol-detail"><span class="enrol-detail-icon">📚</span><div class="enrol-detail-text"><strong>What should my child bring?</strong>A notebook, pencil, and eagerness to learn!</div></div>
-          <div class="enrol-detail"><span class="enrol-detail-icon">✉️</span><div class="enrol-detail-text"><strong>Questions?</strong>babafatehsinghji.school@gmail.com</div></div>
+        <div class="rate-box">
+          <div class="rate-row"><span>Attendance rate</span><strong id="p-rate">—</strong></div>
+          <div class="prog-bar"><div class="prog-fill" id="p-bar" style="width:0%"></div></div>
         </div>
       </div>
-    </div>
-  </section>
-</div>
-
-<!-- ══════════ TEACHER PORTAL PAGE ══════════ -->
-<div class="page" id="portal-page" style="display:none">
-  <div style="height:64px;"></div>
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-eyebrow">Staff Only</div>
-      <h2 class="section-title">Teacher Portal</h2>
-      <p class="section-body">Access the attendance register, student profiles, and class resources. Use your assigned login credentials.</p>
-      <div class="portal-card">
-        <div class="portal-icon">☬</div>
-        <div class="portal-text">
-          <h3>Attendance Register</h3>
-          <p>Mark attendance for your class, view student profiles, track attendance rates over the term, and export records — all in one place.</p>
-          <a class="btn-gold" href="https://babafatehsinghgurmatvidyalaya.github.io/babafatehsinghgurmatvidyalaya/sikh_school_attendance.html" target="_blank" style="margin-top:1.5rem;display:inline-block;">Open Attendance Register →</a>
-        </div>
+      <div class="prof-section">
+        <div class="prof-sec-title">Session Log</div>
+        <div id="p-log"><p style="font-size:13px;color:var(--text3);">No sessions recorded yet.</p></div>
       </div>
-      <div style="margin-top:2rem;background:var(--gold-light);border:1px solid rgba(200,146,42,0.3);border-radius:12px;padding:20px 24px;">
-        <h4 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px;">🔐 Login credentials</h4>
-        <p style="font-size:13px;color:var(--text2);line-height:1.6;">Each teacher has been issued a 6-digit password. Contact the school admin if you need your password. Admin login is for the principal and coordinators only.</p>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ══════════ CONTACT PAGE ══════════ -->
-<div class="page" id="contact-page" style="display:none">
-  <div style="height:64px;"></div>
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-eyebrow">Get in Touch</div>
-      <h2 class="section-title">Contact Us</h2>
-      <p class="section-body">We'd love to hear from you. Whether you have a question about enrolment or just want to know more about the school, reach out.</p>
-      <div class="contact-grid">
-        <div>
-          <div class="contact-detail">
-            <div class="contact-icon">📍</div>
-            <div class="contact-text"><strong>Location</strong><span>Keysborough Gurdwara Sahib, Keysborough VIC 3173</span></div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-icon">📅</div>
-            <div class="contact-text"><strong>Class Days</strong><span>Every Sunday</span></div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-icon">✉️</div>
-            <div class="contact-text"><strong>Email</strong><span><a href="mailto:babafatehsinghji.school@gmail.com" style="color:var(--gold')">babafatehsinghji.school@gmail.com</a></span></div>
-          </div>
-          <div class="contact-detail">
-            <div class="contact-icon">🌐</div>
-            <div class="contact-text"><strong>Old Website</strong><span><a href="https://sites.google.com/view/babafatehsinghjischool/home" target="_blank" style="color:var(--gold')">Google Sites (archived)</a></span></div>
-          </div>
-          <div style="margin-top:1rem;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3140.8!2d145.1!3d-38.01!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zKeysborough+Gurdwara+Sahib!5e0!3m2!1sen!2sau!4v1" width="100%" height="280" style="border:0;display:block;" allowfullscreen="" loading="lazy"></iframe>
-          </div>
-        </div>
-        <div>
-          <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Gurpreet Singh"></div>
-          <div class="form-group"><label>Email</label><input type="email" placeholder="email@example.com"></div>
-          <div class="form-group"><label>Subject</label>
-            <select>
-              <option>Enrolment enquiry</option>
-              <option>General question</option>
-              <option>Volunteer / Seva</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group"><label>Message</label><textarea placeholder="Your message here…" style="min-height:140px;"></textarea></div>
-          <button class="btn-gold" style="width:100%;height:46px;font-size:15px;" onclick="submitContact(')">Send Message</button>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ══════════ FOOTER ══════════ -->
-<footer id="main-footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <span class="nav-khanda">☬</span>
-        <h3>Baba Fateh Singh Ji<br>Punjabi/Gurmat School</h3>
-        <p>Free Punjabi, Gurmat & Kirtan classes every Sunday at Keysborough Gurdwara Sahib. Run by volunteers with love and Seva.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <a href="javascript:void(0)" onclick="showPage('about')">About Us</a>
-        <a href="javascript:void(0)" onclick="showPage('classes')">Classes</a>
-        <a href="javascript:void(0)" onclick="showPage('events')">Events</a>
-        <a href="javascript:void(0)" onclick="showPage('gallery')">Gallery</a>
-        <a href="javascript:void(0)" onclick="showPage('enrolment')">Enrol Now</a>
-        <a href="javascript:void(0)" onclick="showPage('contact')">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <a href="mailto:babafatehsinghji.school@gmail.com">babafatehsinghji.school@gmail.com</a>
-        <a href="#">Keysborough Gurdwara Sahib</a>
-        <a href="#">Keysborough VIC 3173</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span class="waheguru">vwihgurU jI kw Kwlsw vwihgurU jI kI Piqh</span>
-      © 2026 Baba Fateh Singh Ji Punjabi/Gurmat School · Keysborough, Melbourne
     </div>
   </div>
-</footer>
+</div>
 
-<!-- TOAST -->
-<div id="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1410;color:#FAF7F2;font-size:13px;padding:9px 20px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:300;white-space:nowrap;font-family:'DM Sans',sans-serif;"></div>
+<div class="toast" id="toast"></div>
 
 <script>
+// ═══════════════════════════════════════════════════════════
+// ①  PASTE YOUR WEB APP URL BELOW after deploying Apps Script
+// ═══════════════════════════════════════════════════════════
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwrLw2zYKh-hwLncVEpznH-C0iZBuFUiDklQVsq-bCviScUEelPzEtCJVNT8I8tinhL4w/exec';
+// ═══════════════════════════════════════════════════════════
 
-// Global error handler - prevent any error from breaking navigation
-window.onerror = function(msg, src, line, col, err) {
-  console.warn('Non-critical error caught:', msg);
-  return true; // prevent default error handling
+const STORAGE_KEY = 'sikhSchoolAtt_v3';
+
+const PASSWORDS = {
+  'Rajwinder & Sehaj':    '837241',
+  'Harmeet Kaur':         '594017',
+  'Simran & Sukhwinder':  '762483',
+  'Pooja':                '319856',
+  'Amaroj':               '451720',
+  'Anju':                 '208639',
+  'Jatinder & Jaswinder': '974152',
+  'Kuldeep & Satinder':   '683094',
+  'Amritpal':             '527361',
+  'admin':                'KH4LS4@16991469',
 };
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(p => {
-    p.classList.remove('active');
-    p.style.display = 'none';
-  });
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  const el = document.getElementById(page + '-page');
-  if (el) {
-    el.classList.add('active');
-    el.style.display = 'block';
-    // Scroll to content below the fixed nav
-    setTimeout(function() {
-      var top = el.getBoundingClientRect().top + window.pageYOffset - 64;
-      window.scrollTo({top: top, left: 0, behavior: "smooth"});
-    }, 10);
+
+const TEACHER_CLASS = {
+  'Rajwinder & Sehaj':'1A','Harmeet Kaur':'1B','Simran & Sukhwinder':'2',
+  'Pooja':'3A','Amaroj':'3B','Anju':'3C','Jatinder & Jaswinder':'4',
+  'Kuldeep & Satinder':'5','Amritpal':'6','admin':'all',
+};
+
+let currentUser = null;
+let students    = [];
+let att         = {};
+let sundayList  = [], sundayIdx = 0, curDate = '', searchQ = '';
+
+// ── AUTH ─────────────────────────────────────────────────
+function doLogin() {
+  const user  = document.getElementById('login-user').value;
+  const pass  = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-err');
+  const passEl= document.getElementById('login-pass');
+  errEl.classList.remove('show');
+  passEl.classList.remove('err');
+
+  if (!user) { errEl.textContent = 'Please select your name.'; errEl.classList.add('show'); return; }
+  if (PASSWORDS[user] !== pass) {
+    errEl.textContent = 'Incorrect password. Please try again.';
+    errEl.classList.add('show'); passEl.classList.add('err');
+    passEl.value = ''; passEl.focus(); return;
   }
-  document.querySelectorAll('.nav-link').forEach(l => {
-    if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + page + "'")) l.classList.add('active');
-  });
-  document.getElementById('main-footer').style.display = page === 'portal' ? 'none' : 'block';
+
+  currentUser = user;
+  const ini = user === 'admin' ? 'AD' : user.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('chip-av').textContent   = ini;
+  document.getElementById('chip-name').textContent = user === 'admin' ? 'Admin' : user.split(' ')[0];
+  document.getElementById('login-page').style.display  = 'none';
+  document.getElementById('app-shell').style.display   = 'block';
+  initApp();
 }
 
-function toggleMenu() {
-  document.getElementById('mobile-menu').classList.toggle('open');
+function logout() {
+  if (!confirm('Sign out?')) return;
+  currentUser = null; students = []; att = {};
+  document.getElementById('login-page').style.display  = 'flex';
+  document.getElementById('app-shell').style.display   = 'none';
+  document.getElementById('mark-content').style.display = 'none';
+  document.getElementById('loading-state').style.display= 'block';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-user').value = '';
+}
+
+// ── INIT ─────────────────────────────────────────────────
+async function initApp() {
+  sundayList = buildSundays();
+  sundayIdx  = Math.max(0, sundayList.findIndex(s => s === ds(new Date())));
+  if (sundayIdx === 0 && sundayList[0] !== ds(new Date())) sundayIdx = sundayList.length - 5;
+
+  // Show cached data immediately while fetching
+  try {
+    const c = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    if (c.students && c.students.length) { students = c.students; att = c.att || {}; }
+  } catch(e) {}
+
+  document.getElementById('load-err').style.display    = 'none';
+  document.getElementById('loading-state').style.display = 'block';
+  document.getElementById('mark-content').style.display  = 'none';
+
+  if (SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') {
+    if (students.length) {
+      showToast('⚠️ Not connected to Sheets — using cached data');
+      showApp();
+    } else {
+      showErr('Google Sheets not connected yet.\n\nOpen this HTML file in a text editor, find YOUR_WEB_APP_URL_HERE and replace it with your deployed Apps Script URL.\n\nSee the SETUP_INSTRUCTIONS file for steps.');
+    }
+    return;
+  }
+
+  try {
+    // Fetch students from Master Sheet
+    const sr   = await fetch(SHEETS_URL + '?action=students');
+    const sd   = await sr.json();
+    if (!sd.success) { showErr('Could not load students:\n' + sd.error); return; }
+    students = sd.students;
+
+    // Fetch attendance records
+    const ar = await fetch(SHEETS_URL);
+    const ad = await ar.json();
+    if (ad.success) att = ad.records || {};
+
+    // Cache locally
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({students, att})); } catch(e) {}
+    showApp();
+  } catch(err) {
+    if (students.length) {
+      showToast('Offline — using cached data');
+      showApp();
+    } else {
+      showErr('Could not reach Google Sheets.\n\nCheck your internet connection and that the Web App URL is correct in the HTML file.');
+    }
+  }
+}
+
+function showErr(msg) {
+  document.getElementById('load-err').textContent     = msg;
+  document.getElementById('load-err').style.display   = 'block';
+  document.getElementById('loading-state').style.display = 'none';
+}
+
+function showApp() {
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('mark-content').style.display  = 'block';
+
+  // Build class filter from live data
+  const classes = [...new Set(students.map(s => s.cls))].sort();
+  const cf  = document.getElementById('cfilter');
+  const hcf = document.getElementById('hcfilter');
+  cf.innerHTML  = '<option value="all">All classes</option>';
+  hcf.innerHTML = '<option value="all">All classes</option>';
+  classes.forEach(c => { cf.innerHTML += `<option>${c}</option>`; hcf.innerHTML += `<option>${c}</option>`; });
+
+  const cls = TEACHER_CLASS[currentUser];
+  if (cls !== 'all') { cf.value = cls; cf.disabled = true; }
+  else               { cf.value = 'all'; cf.disabled = false; }
+
+  setSun();
+}
+
+// ── SAVE ─────────────────────────────────────────────────
+let saveTimer;
+function save(studentKey, studentName, cls, teacher, status) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({students, att})); } catch(e) {}
+  flashSaved();
+  if (SHEETS_URL === 'YOUR_WEB_APP_URL_HERE') return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action:'save', date:curDate, studentKey, studentName, cls, teacher, status })
+    }).catch(() => {});
+  }, 500);
+}
+
+function flashSaved() {
+  const el = document.getElementById('save-pill');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// ── SUNDAYS ──────────────────────────────────────────────
+function ds(d)   { return d.toISOString().split('T')[0]; }
+function fmtS(s) { return new Date(s+'T00:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}); }
+function ini(n)  { return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+
+function buildSundays() {
+  const list = [], d = new Date(); d.setHours(0,0,0,0);
+  const rec  = new Date(d); rec.setDate(d.getDate() - d.getDay());
+  for (let i = 24; i >= 0; i--) { const s = new Date(rec); s.setDate(rec.getDate()-i*7); list.push(ds(s)); }
+  for (let i = 1;  i <= 4; i++) { const s = new Date(rec); s.setDate(rec.getDate()+i*7); list.push(ds(s)); }
+  return list;
+}
+
+function prevSunday() { if (sundayIdx > 0) { sundayIdx--; setSun(); } }
+function nextSunday() { if (sundayIdx < sundayList.length-1) { sundayIdx++; setSun(); } }
+function setSun() {
+  curDate = sundayList[sundayIdx];
+  document.getElementById('sunday-label').textContent = fmtS(curDate);
+  render();
+}
+
+// ── STUDENT HELPERS ───────────────────────────────────────
+function getS(name, cls)    { return att[curDate] && att[curDate][cls+'|'+name] || null; }
+function setS(name, cls, st) {
+  if (!att[curDate]) att[curDate] = {};
+  const key   = cls+'|'+name;
+  const label = st==='P'?'Present':st==='A'?'Absent':'Late';
+  att[curDate][key] = st;
+  const s = students.find(x => x.name===name && x.cls===cls);
+  save(key, name, cls, s ? s.teacher : '', label);
+  render();
+}
+function markAll(st) {
+  const vis = getVis();
+  if (!att[curDate]) att[curDate] = {};
+  const label = st==='P'?'Present':st==='A'?'Absent':'Late';
+  vis.forEach(s => { att[curDate][s.cls+'|'+s.name]=st; save(s.cls+'|'+s.name, s.name, s.cls, s.teacher, label); });
+  render();
+}
+
+function onSearch(v)   { searchQ = v.trim(); document.getElementById('clear-search').style.display = searchQ ? 'block' : 'none'; render(); }
+function clearSearch() { document.getElementById('search').value=''; searchQ=''; document.getElementById('clear-search').style.display='none'; render(); }
+
+function hl(text, q) {
+  if (!q) return text;
+  const i = text.toLowerCase().indexOf(q.toLowerCase());
+  if (i < 0) return text;
+  return text.slice(0,i) + '<mark>' + text.slice(i, i+q.length) + '</mark>' + text.slice(i+q.length);
+}
+
+function getVis() {
+  const cf = document.getElementById('cfilter').value;
+  return students.filter(s => {
+    if (cf !== 'all' && s.cls !== cf) return false;
+    if (!searchQ) return true;
+    const q = searchQ.toLowerCase();
+    return s.name.toLowerCase().includes(q) || s.roll.toLowerCase().includes(q);
+  });
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function render() {
+  const vis     = getVis();
+  const classes = [...new Set(vis.map(s => s.cls))];
+  let html = '';
+
+  if (!vis.length) {
+    html = `<div class="no-results">No students match "<strong>${searchQ}</strong>"</div>`;
+  } else {
+    classes.forEach(cls => {
+      const grp = vis.filter(s => s.cls === cls);
+      html += `<div class="class-header">Class ${cls}<span class="teacher-tag">${grp[0].teacher}</span></div>`;
+      grp.forEach(s => {
+        const st = getS(s.name, s.cls);
+        const sn = s.name.replace(/'/g, "\\'");
+        html += `<div class="srow${st?' m'+st:''}">
+          <div class="av${st?' '+st:''}" onclick="openProf('${sn}','${s.cls}')">${ini(s.name)}</div>
+          <div class="roll">${hl(s.roll, searchQ)}</div>
+          <div class="sname" onclick="openProf('${sn}','${s.cls}')">${hl(s.name, searchQ)}</div>
+          <div class="att-btns">
+            <button class="ab${st==='P'?' aP':''}" onclick="setS('${sn}','${s.cls}','P')">${st==='P'?'✓ ':''}Present</button>
+            <button class="ab${st==='L'?' aL':''}" onclick="setS('${sn}','${s.cls}','L')">${st==='L'?'✓ ':''}Late</button>
+            <button class="ab${st==='A'?' aA':''}" onclick="setS('${sn}','${s.cls}','A')">${st==='A'?'✓ ':''}Absent</button>
+          </div>
+        </div>`;
+      });
+    });
+  }
+
+  document.getElementById('slist').innerHTML = html;
+  const vals = vis.map(s => getS(s.name, s.cls)).filter(Boolean);
+  document.getElementById('st').textContent = vis.length;
+  document.getElementById('sp').textContent = vals.filter(v => v==='P').length;
+  document.getElementById('sa').textContent = vals.filter(v => v==='A').length;
+  document.getElementById('sl').textContent = vals.filter(v => v==='L').length;
+}
+
+// ── PROFILE ───────────────────────────────────────────────
+function openProf(name, cls) {
+  const s = students.find(x => x.name === name && x.cls === cls);
+  if (!s) return;
+
+  const log = [];
+  Object.keys(att).sort().reverse().forEach(date => {
+    const st = att[date] && att[date][cls+'|'+name];
+    if (st) log.push({ date, st });
+  });
+
+  const p = log.filter(x => x.st==='P').length;
+  const a = log.filter(x => x.st==='A').length;
+  const l = log.filter(x => x.st==='L').length;
+  const tot  = log.length;
+  const rate = tot > 0 ? Math.round(((p+l)/tot)*100) : null;
+  const lastSt = log.length ? log[0].st : null;
+
+  const av = document.getElementById('prof-av');
+  av.className = 'prof-av' + (lastSt ? ' '+lastSt : '');
+  av.textContent = ini(name);
+
+  document.getElementById('prof-name').textContent = name;
+  document.getElementById('prof-sub').textContent  = `Class ${cls} · Roll ${s.roll}`;
+  document.getElementById('p-roll').textContent    = s.roll    || '—';
+  document.getElementById('p-cls').textContent     = cls;
+  document.getElementById('p-teacher').textContent = s.teacher || '—';
+  document.getElementById('p-dob').textContent     = s.dob     || '—';
+  document.getElementById('p-father').textContent  = s.father  || '—';
+  document.getElementById('p-mother').textContent  = s.mother  || '—';
+  document.getElementById('p-email').textContent   = s.email   || '—';
+  document.getElementById('p-np').textContent = p;
+  document.getElementById('p-na').textContent = a;
+  document.getElementById('p-nl').textContent = l;
+
+  const rEl = document.getElementById('p-rate');
+  const bEl = document.getElementById('p-bar');
+  if (rate !== null) {
+    rEl.textContent = rate + '%';
+    const col = rate >= 80 ? 'var(--green)' : rate >= 60 ? 'var(--amber)' : 'var(--red)';
+    rEl.style.color = col; bEl.style.background = col; bEl.style.width = rate + '%';
+  } else { rEl.textContent = '—'; bEl.style.width = '0%'; }
+
+  document.getElementById('p-log').innerHTML = log.length
+    ? log.map(x => `<div class="log-row"><span class="log-date">${fmtS(x.date)}</span><span class="badge b${x.st}">${x.st==='P'?'Present':x.st==='A'?'Absent':'Late'}</span></div>`).join('')
+    : '<p style="font-size:13px;color:var(--text3);">No sessions recorded yet.</p>';
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+function overlayClick(e) { if (e.target === document.getElementById('overlay')) closeProfile(); }
+function closeProfile()  { document.getElementById('overlay').classList.remove('open'); }
+
+// ── TABS ──────────────────────────────────────────────────
+function showTab(t) {
+  document.querySelectorAll('.nav-tab').forEach((el,i) => el.classList.toggle('active', (i===0) === (t==='mark')));
+  document.getElementById('mark-panel').style.display = t==='mark' ? '' : 'none';
+  document.getElementById('hist-panel').style.display = t==='history' ? 'block' : 'none';
+  if (t === 'history') renderHist();
+}
+
+function renderHist() {
+  const cf = document.getElementById('hcfilter').value;
+  const sf = document.getElementById('hstatfilter').value;
+  const rows = [];
+  Object.keys(att).sort().reverse().forEach(date => {
+    Object.entries(att[date]).forEach(([key, st]) => {
+      const [cls, ...np] = key.split('|'); const nm = np.join('|');
+      if ((cf==='all'||cf===cls) && (sf==='all'||sf===st)) {
+        const s = students.find(x => x.cls===cls && x.name===nm);
+        rows.push({ date, name:nm, cls, teacher:s?s.teacher:'', roll:s?s.roll:'', st });
+      }
+    });
+  });
+  const body  = document.getElementById('hbody');
+  const empty = document.getElementById('hist-empty');
+  if (!rows.length) { body.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  body.innerHTML = rows.map(r =>
+    `<tr><td>${fmtS(r.date)}</td><td>${r.roll}</td><td>${r.name}</td><td>${r.cls}</td><td>${r.teacher}</td>
+     <td><span class="badge b${r.st}">${r.st==='P'?'Present':r.st==='A'?'Absent':'Late'}</span></td></tr>`
+  ).join('');
+}
+
+// ── EXPORT ────────────────────────────────────────────────
+function exportCSV() {
+  const dates = Object.keys(att).sort();
+  if (!dates.length) { showToast('No attendance data yet.'); return; }
+  let csv = 'Date,Roll,Student,Class,Teacher,Father,Mother,Email,Status\n';
+  dates.forEach(date => {
+    Object.entries(att[date]).forEach(([key, st]) => {
+      const [cls, ...np] = key.split('|'); const nm = np.join('|');
+      const s = students.find(x => x.cls===cls && x.name===nm);
+      csv += `${date},${s?s.roll:''},${nm},${cls},${s?s.teacher:''},${s?s.father:''},${s?s.mother:''},${s?s.email:''},${st==='P'?'Present':st==='A'?'Absent':'Late'}\n`;
+    });
+  });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+  a.download = 'attendance_' + ds(new Date()) + '.csv';
+  a.click();
+  showToast('CSV downloaded!');
 }
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.style.opacity = '1';
-  setTimeout(() => t.style.opacity = '0', 3000);
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
-
-async function submitEnrol() {
-  const fname   = document.getElementById('e-fname').value.trim();
-  const lname   = document.getElementById('e-lname').value.trim();
-  const dob     = document.getElementById('e-dob').value;
-  const program = document.getElementById('e-program').value;
-  const father  = document.getElementById('e-father').value.trim();
-  const mother  = document.getElementById('e-mother').value.trim();
-  const phone   = document.getElementById('e-phone').value.trim();
-  const email   = document.getElementById('e-email').value.trim();
-  const notes   = document.getElementById('e-notes').value.trim();
-
-  // Basic validation
-  if (!fname || !lname || !dob || !program || !phone || !email) {
-    showToast('⚠️ Please fill in all required fields.');
-    return;
-  }
-
-  const btn    = document.getElementById('enrol-btn');
-  const status = document.getElementById('enrol-status');
-  btn.textContent = 'Submitting…';
-  btn.disabled = true;
-
-  const data = {
-    'Child First Name': fname,
-    'Child Last Name':  lname,
-    'Date of Birth':    dob,
-    'Program':          program,
-    'Father\'s Name':   father,
-    'Mother\'s Name':   mother,
-    'Contact Number':   phone,
-    'Email':            email,
-    'Notes':            notes,
-    '_subject':         `New Enrolment — ${fname} ${lname}`,
-  };
-
-  try {
-    // 1. Send to Formspree (email notification)
-    const res = await fetch('https://formspree.io/f/mvzjywbb', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    if (!res.ok) throw new Error('Formspree error');
-
-    // 2. Send to Google Sheets (if URL is set)
-    if (typeof SHEETS_URL !== 'undefined' && SHEETS_URL !== 'YOUR_WEB_APP_URL_HERE') {
-      fetch(SHEETS_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-          action: 'enrol',
-          name: `${fname} ${lname}`,
-          dob, program, father, mother, phone, email, notes
-        })
-      }).catch(() => {}); // silent fail — email already sent
-    }
-
-    // Success
-    btn.textContent = '✅ Submitted!';
-    btn.style.background = 'var(--green)';
-    status.textContent   = 'Thank you! We\'ll be in touch within a few days to confirm your child\'s class.';
-    status.style.color   = 'var(--green)';
-
-    // Clear form
-    ['e-fname','e-lname','e-dob','e-program','e-father','e-mother','e-phone','e-email','e-notes']
-      .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-
-  } catch(err) {
-    btn.textContent  = 'Submit Enrolment';
-    btn.disabled     = false;
-    status.textContent = '❌ Something went wrong. Please email us directly at babafatehsinghji.school@gmail.com';
-    status.style.color = 'var(--red)';
-  }
-}
-
-function submitContact() {
-  showToast('✅ Message sent! We\'ll reply shortly.');
-}
-
-// Init
-window.onload = function() {
-  showPage('home');
-};
 </script>
 </body>
 </html>
