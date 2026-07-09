@@ -651,7 +651,11 @@ function showPage(page) {
   if (el) {
     el.classList.add('active');
     el.style.display = 'block';
-    window.scrollTo(0, 0);
+    // Scroll to content below the fixed nav
+    setTimeout(function() {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 64;
+      window.scrollTo({top: top, left: 0, behavior: "smooth"});
+    }, 10);
   }
   document.querySelectorAll('.nav-link').forEach(l => {
     if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + page + "'")) l.classList.add('active');
