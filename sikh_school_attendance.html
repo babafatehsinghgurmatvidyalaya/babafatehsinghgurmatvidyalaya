@@ -191,19 +191,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <h2>Attendance Register</h2>
       <p>Sign in to mark your class</p>
     </div>
-    <label class="lbl" for="login-user">Select your name</label>
+    <label class="lbl" for="login-user">Select your class</label>
     <select class="login-select" id="login-user">
-      <option value="">— Choose teacher —</option>
-      <option value="Rajwinder & Sehaj">Rajwinder & Sehaj (Class 1A)</option>
-      <option value="Harmeet Kaur">Harmeet Kaur (Class 1B)</option>
-      <option value="Simran & Sukhwinder">Simran & Sukhwinder (Class 2)</option>
-      <option value="Pooja">Pooja (Class 3A)</option>
-      <option value="Amaroj">Amaroj (Class 3B)</option>
-      <option value="Anju">Anju (Class 3C)</option>
-      <option value="Jatinder & Jaswinder">Jatinder & Jaswinder (Class 4)</option>
-      <option value="Kuldeep & Satinder">Kuldeep & Satinder (Class 5)</option>
-      <option value="Amritpal">Amritpal (Class 6)</option>
-      <option value="admin">Admin (All classes)</option>
+      <option value="">— Select your class —</option>
+      <option value="Rajwinder & Sehaj">Class 1A</option>
+      <option value="Harmeet Kaur">Class 1B</option>
+      <option value="Simran & Sukhwinder">Class 2</option>
+      <option value="Pooja">Class 3A</option>
+      <option value="Amaroj">Class 3B</option>
+      <option value="Anju">Class 3C</option>
+      <option value="Jatinder & Jaswinder">Class 4</option>
+      <option value="Kuldeep & Satinder">Class 5</option>
+      <option value="Amritpal">Class 6</option>
+      <option value="admin">Admin</option>
     </select>
     <label class="lbl" for="login-pass">Password</label>
     <input class="login-input" type="password" id="login-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
@@ -341,18 +341,7 @@ const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwrLw2zYKh-hwLncVEpz
 
 const STORAGE_KEY = 'sikhSchoolAtt_v3';
 
-const PASSWORDS = {
-  'Rajwinder & Sehaj':    '837241',
-  'Harmeet Kaur':         '594017',
-  'Simran & Sukhwinder':  '762483',
-  'Pooja':                '319856',
-  'Amaroj':               '451720',
-  'Anju':                 '208639',
-  'Jatinder & Jaswinder': '974152',
-  'Kuldeep & Satinder':   '683094',
-  'Amritpal':             '527361',
-  'admin':                'KH4LS4@16991469',
-};
+// Passwords are verified via Google Apps Script — not stored here
 
 const TEACHER_CLASS = {
   'Rajwinder & Sehaj':'1A','Harmeet Kaur':'1B','Simran & Sukhwinder':'2',
